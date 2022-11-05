@@ -1,13 +1,15 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/auth/auth_bloc.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var _inputController;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 246, 232, 110),
       body: Padding(
@@ -25,7 +27,7 @@ class Login extends StatelessWidget {
                 alignment: Alignment.bottomLeft,
               ),
               Container(
-                padding: EdgeInsets.only(top: 20, left: 20, bottom: 10),
+                padding: EdgeInsets.only(top: 20, left: 20, bottom: 40),
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: Text(
                   'Iniciar Sesión',
@@ -35,34 +37,73 @@ class Login extends StatelessWidget {
                       fontSize: 20),
                 ),
               ),
-              InputText(inputController: _inputController, hintText: 'Correo'),
-              InputText(
-                  inputController: _inputController, hintText: 'Contraseña'),
-              Container(
-                padding: EdgeInsets.only(right: 20),
-                margin: EdgeInsets.only(bottom: 20),
-                alignment: Alignment.topRight,
-                child: Text(
-                  '¿Olvidaste tu contraseña?',
-                  style: TextStyle(color: Colors.grey.shade500),
-                ),
-              ),
               Center(
                 child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    color: Colors.white,
+                  ),
                   height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.85,
+                  width: MediaQuery.of(context).size.width * 0.80,
                   child: OutlinedButton(
-                      onPressed: () {},
-                      child: Text('Continuar'),
-                      style: OutlinedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        primary: Colors.grey.shade900,
-                        side: BorderSide(color: Colors.grey.shade500, width: 1),
-                      )),
+                    onPressed: () {
+                      BlocProvider.of<AuthBloc>(context)
+                          .add(SignInAuthenticationEvent());
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image(
+                          image: AssetImage("assets/images/google_logo.png"),
+                          height: 30.0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            'Iniciar sesión con Google',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    // style: OutlinedButton.styleFrom(
+                    //   shape: const RoundedRectangleBorder(
+                    //       borderRadius:
+                    //           BorderRadius.all(Radius.circular(30))),
+                    //   primary: Colors.grey.shade900,
+                    //   side: BorderSide(color: Colors.grey.shade500, width: 1),
+                    // )
+                  ),
                 ),
               ),
+              const Divider(
+                height: 50,
+                thickness: 1,
+                indent: 30,
+                endIndent: 30,
+                color: Colors.grey,
+              ),
+              Align(
+                child: Text(
+                  'ó',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.grey.shade900, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Align(
+                child: Text(
+                  'Iniciar sesión modo anónimo',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.grey.shade900, fontWeight: FontWeight.bold),
+                ),
+              )
             ],
           ),
         ),
@@ -72,7 +113,7 @@ class Login extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(bottom: 10),
           child: Text(
-            'Crear una nueva cuenta',
+            'Al acceder se aceptan todos los T&C',
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.grey.shade900, fontWeight: FontWeight.bold),

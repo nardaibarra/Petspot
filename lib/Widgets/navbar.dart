@@ -105,6 +105,7 @@ class Navbar extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (nextContext) => BlocProvider.value(
           value: BlocProvider.of<PetsBloc>(context), child: Profile()),
+
       // settings: RouteSettings(arguments: [state.selectedBook])
     ));
   }

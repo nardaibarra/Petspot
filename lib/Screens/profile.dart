@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Screens/login.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
+import 'package:petspot/bloc/auth/auth_bloc.dart';
 import 'package:petspot/bloc/pets_bloc.dart';
 
 class Profile extends StatelessWidget {
@@ -33,7 +34,8 @@ class Profile extends StatelessWidget {
                       child: IconButton(
                           color: Colors.grey.shade800,
                           onPressed: () {
-                            logout(context);
+                            BlocProvider.of<AuthBloc>(context)
+                                .add(SignOutAuthenticationEvent());
                           },
                           icon: FaIcon(FontAwesomeIcons.rightFromBracket)),
                     )
