@@ -36,7 +36,7 @@ class Profile extends StatelessWidget {
                             Navigator.of(context)
                                 .popUntil(ModalRoute.withName('/'));
                             BlocProvider.of<AuthBloc>(context)
-                                .add(GoogleLogoutEvent());
+                                .add(LogoutEvent());
                           },
                           icon: FaIcon(FontAwesomeIcons.rightFromBracket)),
                     )

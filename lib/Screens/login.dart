@@ -101,11 +101,16 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Align(
-                child: Text(
-                  'Iniciar sesión modo anónimo',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.grey.shade900, fontWeight: FontWeight.bold),
+                child: TextButton(
+                  onPressed: () {
+                    BlocProvider.of<AuthBloc>(context)
+                        .add(AnonymousLoginEvent());
+                  },
+                  child: Text('Iniciar sesión modo anónimo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.grey.shade900,
+                          fontWeight: FontWeight.bold)),
                 ),
               )
             ],

@@ -1,13 +1,20 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserAuth {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
+  final FirebaseFirestore _fireBaseStore = FirebaseFirestore.instance;
   bool isSignedIn() {
     return _firebaseAuth.currentUser != null;
+  }
+
+  bool isAnonymous() {
+    return _firebaseAuth.currentUser!.isAnonymous;
   }
 
   Future<void> signOutGoogleUser() async {
@@ -39,5 +46,26 @@ class UserAuth {
     User user = authResult.user!;
     final firebaseToken = await user.getIdToken();
     print("user fcm token:${firebaseToken}");
+
+    //create new user if it does not exists
+    await getUserorCreate(_firebaseAuth.currentUser!.uid, googleUser);
+  }
+
+  Future<void> getUserorCreate(String uid, googleUser) async {
+    var user = await _fireBaseStore.collection('usuarios').doc(uid).get();
+    //if it does not exist, then create new
+    if (!user.exists) {
+      await _fireBaseStore.collection('usuarios').doc(uid).set({
+        'nombre': googleUser.displayName,
+        'foto': googleUser.photoUrl,
+        'email': googleUser.email,
+      });
+    }
+  }
+
+  Future<void> AnonymousSignIn() async {
+    //Google sign in
+    final anonymousUser = await _firebaseAuth.signInAnonymously();
+    print(">> User email:${anonymousUser.credential}");
   }
 }
