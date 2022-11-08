@@ -2,12 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petspot/bloc/auth/auth_bloc.dart';
 
-import '../bloc/auth/auth_bloc.dart';
+class Login extends StatefulWidget {
+  Login({Key? key}) : super(key: key);
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+  @override
+  State<Login> createState() => _LoginState();
+}
 
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +52,7 @@ class Login extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context)
-                          .add(SignInAuthenticationEvent());
+                          .add(GoogleLoginEvent());
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

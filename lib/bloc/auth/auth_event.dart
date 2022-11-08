@@ -12,12 +12,12 @@ class VerifyAuthenticationEvent extends AuthEvent {
   List<Object> get props => [];
 }
 
-class SignOutAuthenticationEvent extends AuthEvent {
+class GoogleLogoutEvent extends AuthEvent {
   @override
   List<Object> get props => [];
 }
 
-class SignInAuthenticationEvent extends AuthEvent {
+class GoogleLoginEvent extends AuthEvent {
   @override
   List<Object> get props => [];
 }

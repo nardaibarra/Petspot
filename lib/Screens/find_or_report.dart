@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petspot/Screens/find_form.dart';
 import 'package:petspot/Screens/report_form.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
-
-import '../bloc/pets_bloc.dart';
 
 class FindOrReport extends StatelessWidget {
   const FindOrReport({super.key});
@@ -115,17 +112,11 @@ class FindOrReport extends StatelessWidget {
 }
 
 navigateToFindForm(BuildContext context) {
-  Navigator.of(context).push(MaterialPageRoute(
-    builder: (nextContext) => BlocProvider.value(
-        value: BlocProvider.of<PetsBloc>(context), child: FindForm()),
-    // settings: RouteSettings(arguments: [state.selectedBook])
-  ));
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => const FindForm()));
 }
 
 navigateToReportForm(BuildContext context) {
-  Navigator.of(context).push(MaterialPageRoute(
-    builder: (nextContext) => BlocProvider.value(
-        value: BlocProvider.of<PetsBloc>(context), child: ReportForm()),
-    // settings: RouteSettings(arguments: [state.selectedBook])
-  ));
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => const ReportForm()));
 }

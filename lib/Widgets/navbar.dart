@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Screens/home.dart';
 import 'package:petspot/Screens/missing_list.dart';
 import 'package:petspot/Screens/my_pets.dart';
 import 'package:petspot/Screens/profile.dart';
-import 'package:petspot/bloc/pets_bloc.dart';
 
 class Navbar extends StatelessWidget {
   final String screen;
@@ -78,35 +76,22 @@ class Navbar extends StatelessWidget {
   }
 
   navigateToHome(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (nextContext) => BlocProvider.value(
-          value: BlocProvider.of<PetsBloc>(context), child: Home()),
-      // settings: RouteSettings(arguments: [state.selectedBook])
-    ));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Home()));
   }
 
   navigateToMissing(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (nextContext) => BlocProvider.value(
-          value: BlocProvider.of<PetsBloc>(context), child: MissingList()),
-      // settings: RouteSettings(arguments: [state.selectedBook])
-    ));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const MissingList()));
   }
 
   navigateToMyPets(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (nextContext) => BlocProvider.value(
-          value: BlocProvider.of<PetsBloc>(context), child: MyPets()),
-      // settings: RouteSettings(arguments: [state.selectedBook])
-    ));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const MyPets()));
   }
 
   navigateToProfile(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (nextContext) => BlocProvider.value(
-          value: BlocProvider.of<PetsBloc>(context), child: Profile()),
-
-      // settings: RouteSettings(arguments: [state.selectedBook])
-    ));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Profile()));
   }
 }

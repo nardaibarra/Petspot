@@ -3,63 +3,41 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserAuth {
-  final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ["email"]);
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   bool isSignedIn() {
-    return firebaseAuth.currentUser != null;
+    return _firebaseAuth.currentUser != null;
   }
 
   Future<void> signOutGoogleUser() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-
     await _googleSignIn.signOut();
-    await _auth.signOut();
   }
 
-  // You need to sign out from provider first and then notify firebase of this
   Future<void> signOutFirebaseUser() async {
-    await firebaseAuth.signOut();
+    await _firebaseAuth.signOut();
   }
 
   Future<void> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser!.authentication;
+    //Google sign in
+    final googleUser = await _googleSignIn.signIn();
+    final googleAuth = await googleUser!.authentication;
+
+    print(">> User email:${googleUser.email}");
+    print(">> User name:${googleUser.displayName}");
+    print(">> User photo:${googleUser.photoUrl}");
+
+    // credenciales de usuario autenticado con Google
     final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth!.accessToken, idToken: googleAuth.idToken);
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    // firebase sign in con credenciales de Google
+    final authResult = await _firebaseAuth.signInWithCredential(credential);
 
-    await firebaseAuth.signInWithCredential(credential);
-
-    //await createUserCollectionFirebase(this.firebaseAuth.currentUser!.uid);
+    // Extraer token**
+    User user = authResult.user!;
+    final firebaseToken = await user.getIdToken();
+    print("user fcm token:${firebaseToken}");
   }
-
-  // Future createUserCollectionFirebase(String uid) async {
-  //   var userDoc =
-  //       await FirebaseFirestore.instance.collection('users').doc(uid).get();
-  //   if (!userDoc.exists) {
-  //     await FirebaseFirestore.instance.collection('users').doc(uid).set(
-  //       {
-  //         "favsList": [],
-  //       },
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // }
-
-  // Future createUserCollectionFromCopy(String uid, List<String> newList) async {
-  //   var userDoc =
-  //       await FirebaseFirestore.instance.collection('users').doc(uid).get();
-  //   if (userDoc.exists) {
-  //     await FirebaseFirestore.instance.collection('users').doc(uid).set(
-  //       {
-  //         "favsList": newList,
-  //       },
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // }
 }

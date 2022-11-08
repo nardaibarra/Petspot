@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petspot/Screens/home.dart';
 import 'package:petspot/Screens/login.dart';
 import 'package:petspot/bloc/auth/auth_bloc.dart';
-import 'package:petspot/bloc/pets_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +14,6 @@ void main() async {
         BlocProvider(
           create: (context) => AuthBloc()..add(VerifyAuthenticationEvent()),
         ),
-        BlocProvider(
-          create: (context) => PetsBloc(),
-        ),
       ],
       child: MyApp(),
     ),
@@ -25,11 +21,11 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        initialRoute: '/',
+        routes: {'/login': ((context) => Login())},
         theme: ThemeData(
             fontFamily: 'Poppins',
             colorScheme: ColorScheme.dark(),
@@ -37,19 +33,21 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.grey.shade200,
             primaryColor: Color.fromARGB(255, 187, 189, 188)),
         title: 'Find Track App',
-        home: BlocBuilder<AuthBloc, AuthState>(
+        home: BlocConsumer<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state is AuthenticatedState)
+            if (state is AuthenticatedState || state is SuccessLoginState) {
+              print(state);
               return Home();
-            else if (state is UnauthenticatedState)
+            } else if (state is UnauthenticatedState ||
+                state is SuccessLogoutState) {
+              print(state);
               return Login();
-            else if (state is SuccessAuthSigninState)
-              return Home();
-            else if (state is SuccessAuthSignOutState)
+            } else {
+              print(state);
               return Login();
-            else
-              return Login();
+            }
           },
+          listener: (context, state) {},
         ));
   }
 }

@@ -19,22 +19,27 @@ class UnauthenticatedState extends AuthState {
   List<Object> get props => [];
 }
 
-class SuccessAuthSigninState extends AuthState {
+class SuccessLoginState extends AuthState {
   @override
   List<Object> get props => [];
 }
 
-class ErrorAuthSigninState extends AuthState {
+class ErrorLoginState extends AuthState {
   @override
   List<Object> get props => [];
 }
 
-class SuccessAuthSignOutState extends AuthState {
+class SuccessLogoutState extends AuthState {
   @override
   List<Object> get props => [];
 }
 
-class ErrorAuthSignOutState extends AuthState {
+class ErrorLogoutState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class LoadingLogoutState extends AuthState {
   @override
   List<Object> get props => [];
 }

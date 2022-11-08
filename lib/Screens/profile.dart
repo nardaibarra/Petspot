@@ -5,7 +5,6 @@ import 'package:petspot/Screens/login.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
 import 'package:petspot/bloc/auth/auth_bloc.dart';
-import 'package:petspot/bloc/pets_bloc.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -34,8 +33,10 @@ class Profile extends StatelessWidget {
                       child: IconButton(
                           color: Colors.grey.shade800,
                           onPressed: () {
+                            Navigator.of(context)
+                                .popUntil(ModalRoute.withName('/'));
                             BlocProvider.of<AuthBloc>(context)
-                                .add(SignOutAuthenticationEvent());
+                                .add(GoogleLogoutEvent());
                           },
                           icon: FaIcon(FontAwesomeIcons.rightFromBracket)),
                     )
@@ -57,12 +58,4 @@ class Profile extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
-}
-
-logout(BuildContext context) {
-  Navigator.of(context).push(MaterialPageRoute(
-    builder: (nextContext) => BlocProvider.value(
-        value: BlocProvider.of<PetsBloc>(context), child: Login()),
-    // settings: RouteSettings(arguments: [state.selectedBook])
-  ));
 }

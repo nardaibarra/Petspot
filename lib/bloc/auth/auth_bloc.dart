@@ -8,13 +8,14 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  UserAuth auth = UserAuth();
   AuthBloc() : super(AuthInitial()) {
-    on<VerifyAuthenticationEvent>(googleVerifyAuth);
-    on<SignOutAuthenticationEvent>(googleLogout);
-    on<SignInAuthenticationEvent>(googleLogin);
+    on<VerifyAuthenticationEvent>(verifyAuth);
+    on<GoogleLogoutEvent>(googleLogout);
+    on<GoogleLoginEvent>(googleLogin);
   }
-  FutureOr<void> googleVerifyAuth(event, emit) async {
+  UserAuth auth = UserAuth();
+
+  void verifyAuth(event, emit) {
     if (auth.isSignedIn()) {
       emit(AuthenticatedState());
     } else {
@@ -22,22 +23,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  FutureOr<void> googleLogin(event, emit) async {
-    try {
-      await auth.signInWithGoogle();
-      emit(SuccessAuthSigninState());
-    } catch (e) {
-      emit(ErrorAuthSigninState());
-    }
-  }
-
   FutureOr<void> googleLogout(event, emit) async {
     try {
       await auth.signOutGoogleUser();
-      print('logout');
-      emit(SuccessAuthSignOutState());
+      await auth.signOutFirebaseUser();
+      emit(LoadingLogoutState());
     } catch (e) {
-      emit(ErrorAuthSignOutState());
+      emit(ErrorLogoutState());
+      print('error logout');
+      return;
+    }
+    emit(SuccessLogoutState());
+  }
+
+  FutureOr<void> googleLogin(event, emit) async {
+    try {
+      await auth.signInWithGoogle();
+      emit(SuccessLoginState());
+      print('login');
+    } catch (e) {
+      emit(ErrorLoginState());
+      print('error login');
     }
   }
 }
