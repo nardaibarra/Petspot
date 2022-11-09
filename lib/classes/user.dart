@@ -1,13 +1,13 @@
 class CurrentUser {
-  final String nombre;
-  final String foto;
-  final String correo;
-  final String telefono;
+  final String name;
+  final String photo;
+  final String email;
+  final String telephone;
 
   CurrentUser({
-    required this.nombre,
-    required this.foto,
-    required this.correo,
-    required this.telefono,
+    required this.name,
+    required this.photo,
+    required this.email,
+    required this.telephone,
   });
 }

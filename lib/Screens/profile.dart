@@ -12,7 +12,6 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _inputController;
     return Scaffold(
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +58,7 @@ class Profile extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 50,
                             backgroundImage:
-                                NetworkImage(state.currentUser.foto),
+                                NetworkImage(state.currentUser.photo),
                           ),
                         ),
                       ),
@@ -73,19 +72,19 @@ class Profile extends StatelessWidget {
                               style: TextStyle(color: Colors.grey.shade600),
                             ),
                             _customTextForm(
-                                context, state.currentUser.nombre, true),
+                                context, state.currentUser.name, true),
                             Text(
                               'correo',
                               style: TextStyle(color: Colors.grey.shade600),
                             ),
                             _customTextForm(
-                                context, state.currentUser.correo, true),
+                                context, state.currentUser.email, true),
                             Text(
                               'telefono',
                               style: TextStyle(color: Colors.grey.shade600),
                             ),
                             _customTextForm(
-                                context, state.currentUser.telefono, false),
+                                context, state.currentUser.telephone, false),
                           ],
                         ),
                       )

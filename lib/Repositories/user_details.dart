@@ -15,10 +15,10 @@ class UserDetails {
   Future<CurrentUser> getUserInfo() async {
     if (auth.isAnonymous()) {
       CurrentUser user = CurrentUser(
-          nombre: 'Anónimo',
-          foto: 'https://cdn-icons-png.flaticon.com/512/4775/4775486.png',
-          correo: '-',
-          telefono: '-');
+          name: 'Anónimo',
+          photo: 'https://cdn-icons-png.flaticon.com/512/4775/4775486.png',
+          email: '-',
+          telephone: '-');
       return user;
     } else {
       var userDataQuery = await _fireBaseStore
@@ -29,10 +29,10 @@ class UserDetails {
       String picture = userDoc.data()?['foto'] ??
           'https://cdn-icons-png.flaticon.com/512/4775/4775486.png';
       String email = userDoc.data()?['email'] ?? '-';
-      String telefono = userDoc.data()?['telefono'] ?? '-';
+      String telephone = userDoc.data()?['telefono'] ?? '-';
 
       CurrentUser user = CurrentUser(
-          nombre: name, foto: picture, correo: email, telefono: telefono);
+          name: name, photo: picture, email: email, telephone: telephone);
       return user;
     }
   }
