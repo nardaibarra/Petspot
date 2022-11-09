@@ -1,6 +1,3 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,6 +11,7 @@ class UserAuth {
   }
 
   bool isAnonymous() {
+    print(_firebaseAuth.currentUser!.isAnonymous);
     return _firebaseAuth.currentUser!.isAnonymous;
   }
 
@@ -63,8 +61,7 @@ class UserAuth {
     }
   }
 
-  Future<void> AnonymousSignIn() async {
-    //Google sign in
+  Future<void> anonymousSignIn() async {
     final anonymousUser = await _firebaseAuth.signInAnonymously();
     print(">> User email:${anonymousUser.credential}");
   }

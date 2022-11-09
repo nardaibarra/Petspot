@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Screens/home.dart';
 import 'package:petspot/Screens/missing_list.dart';
 import 'package:petspot/Screens/my_pets.dart';
 import 'package:petspot/Screens/profile.dart';
+import 'package:petspot/bloc/user/user_bloc.dart';
 
 class Navbar extends StatelessWidget {
   final String screen;
@@ -91,6 +93,7 @@ class Navbar extends StatelessWidget {
   }
 
   navigateToProfile(BuildContext context) {
+    BlocProvider.of<UserBloc>(context).add(GetUserInfoEevent());
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const Profile()));
   }

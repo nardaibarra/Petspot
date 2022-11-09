@@ -61,9 +61,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> anonymousLogin(event, emit) async {
     try {
-      await auth.AnonymousSignIn();
+      await auth.anonymousSignIn();
       emit(SuccessLoginState());
-      print('login');
+      print('anonymous login');
     } catch (e) {
       emit(ErrorLoginState());
       print('error login');

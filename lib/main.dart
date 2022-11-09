@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petspot/Screens/home.dart';
 import 'package:petspot/Screens/login.dart';
 import 'package:petspot/bloc/auth/auth_bloc.dart';
+import 'package:petspot/bloc/user/user_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,9 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc()..add(VerifyAuthenticationEvent()),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc()..add(GetUserInfoEevent()),
         ),
       ],
       child: MyApp(),
