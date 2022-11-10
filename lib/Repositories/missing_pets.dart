@@ -14,8 +14,10 @@ class MissingPets {
 
   Future<List<dynamic>> getAllMissingPetsInfo() async {
     List missingPetsList = [];
-    var missingPetsDataQuery =
-        await _fireBaseStore.collection('mascotas_perdidas').get();
+    var missingPetsDataQuery = await _fireBaseStore
+        .collection('mascotas_perdidas')
+        .where('active', isEqualTo: true)
+        .get();
     var missingPetsDocs =
         missingPetsDataQuery.docs.map((doc) => doc.data()).toList();
 
@@ -27,13 +29,12 @@ class MissingPets {
       String size = element['talla'] ?? '-';
       String user = element['usuario'] ?? '-';
       String userId = element['usuarioId'] ?? '-';
-      String photo1 = element['foto_1'] ?? '-';
-      String photo2 = element['foto_2'] ?? '-';
-      String photo3 = element['foto_3'] ?? '-';
+      List<dynamic> photos = element['fotos'] ?? [];
       String telephone = element['telefono'] ?? '-';
       String sex = element['sexo'] ?? '-';
       Timestamp timestamp = element['timestamp'] ?? Timestamp.now();
-
+      print(photos);
+      print(name);
       missingPetsList.add(MissingPet(
           name: name,
           specie: specie,
@@ -42,9 +43,7 @@ class MissingPets {
           size: size,
           user: user,
           userId: userId,
-          photo1: photo1,
-          photo2: photo2,
-          photo3: photo3,
+          photos: photos,
           sex: sex,
           telephone: telephone,
           timestamp: timestamp));

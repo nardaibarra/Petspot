@@ -43,6 +43,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "824348489420-0tv0n53pr472lp4lr4chmijfifbv9mr1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.petspotapp",
+            "certificate_hash": "bc1fc081da9121c217c2cc6ee6d56db803306061"
+          }
+        },
+        {
           "client_id": "824348489420-76qvt6tk7qv74632c02mspva3u9rse4d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

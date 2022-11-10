@@ -14,6 +14,7 @@ class MissingBloc extends Bloc<MissingEvent, MissingState> {
 
   FutureOr<void> _getAllMissingPets(
       MissingEvent event, Emitter<MissingState> emit) async {
+    print('1');
     emit(MissingPetsLoadingState());
 
     try {
@@ -21,6 +22,8 @@ class MissingBloc extends Bloc<MissingEvent, MissingState> {
       List<dynamic> missingPetsList = await missingPets.getAllMissingPetsInfo();
       print(missingPetsList);
       emit(MissingPetsSuccessState(missingPetsList));
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 }
