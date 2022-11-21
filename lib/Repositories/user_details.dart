@@ -37,5 +37,25 @@ class UserDetails {
     }
   }
 
+  Future<String> editUserTelephone(String telephone) async {
+    print('editing');
+    print(telephone);
+    try {
+      _fireBaseStore
+          .collection("usuarios")
+          .doc('${FirebaseAuth.instance.currentUser!.uid}')
+          .update({'telefono': telephone});
+    } catch (e) {
+      print('error');
+    }
+
+    var userTelephone = await _fireBaseStore
+        .collection('usuarios')
+        .doc('${FirebaseAuth.instance.currentUser!.uid}')
+        .get();
+
+    return userTelephone.data()?['telefono'];
+  }
+
   UserDetails._internal();
 }

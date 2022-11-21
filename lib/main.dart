@@ -24,7 +24,7 @@ void main() async {
           create: (context) => MissingBloc()..add(GetAllMissingPetsEvent()),
         ),
         BlocProvider(
-          create: (context) => ReportedBloc(),
+          create: (context) => ReportedBloc()..add(GetAllReportedPetsEvent()),
         ),
       ],
       child: MyApp(),

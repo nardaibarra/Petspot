@@ -6,6 +6,7 @@ import 'package:petspot/Screens/missing_list.dart';
 import 'package:petspot/Screens/my_pets.dart';
 import 'package:petspot/Screens/profile.dart';
 import 'package:petspot/bloc/missing/missing_bloc.dart';
+import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
 
 class Navbar extends StatelessWidget {
@@ -79,6 +80,7 @@ class Navbar extends StatelessWidget {
   }
 
   navigateToHome(BuildContext context) {
+    BlocProvider.of<ReportedBloc>(context).add(GetAllReportedPetsEvent());
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const Home()));
   }
@@ -96,7 +98,6 @@ class Navbar extends StatelessWidget {
 
   navigateToProfile(BuildContext context) {
     BlocProvider.of<UserBloc>(context).add(GetUserInfoEevent());
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Profile()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
   }
 }

@@ -9,7 +9,7 @@ part 'missing_state.dart';
 
 class MissingBloc extends Bloc<MissingEvent, MissingState> {
   MissingBloc() : super(MissingInitial()) {
-    on<MissingEvent>(_getAllMissingPets);
+    on<GetAllMissingPetsEvent>(_getAllMissingPets);
   }
 
   FutureOr<void> _getAllMissingPets(

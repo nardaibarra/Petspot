@@ -6,3 +6,5 @@ abstract class ReportedEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetAllReportedPetsEvent extends ReportedEvent {}

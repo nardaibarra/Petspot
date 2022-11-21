@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:petspot/Repositories/user_details.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
 import 'package:petspot/bloc/auth/auth_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class Profile extends StatefulWidget {
+  Profile({super.key});
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+TextEditingController telephone = TextEditingController();
+
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +53,8 @@ class Profile extends StatelessWidget {
             ),
             BlocConsumer<UserBloc, UserState>(
               builder: (context, state) {
-                print(state);
                 if (state is SuccessUserInfoState) {
+                  var userRepo = UserDetails();
                   return Container(
                       child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,20 +79,54 @@ class Profile extends StatelessWidget {
                               'nombre',
                               style: TextStyle(color: Colors.grey.shade600),
                             ),
-                            _customTextForm(
-                                context, state.currentUser.name, true),
+                            _customTextForm(context, state.currentUser.name),
                             Text(
                               'correo',
                               style: TextStyle(color: Colors.grey.shade600),
                             ),
-                            _customTextForm(
-                                context, state.currentUser.email, true),
+                            _customTextForm(context, state.currentUser.email),
                             Text(
                               'telefono',
                               style: TextStyle(color: Colors.grey.shade600),
                             ),
-                            _customTextForm(
-                                context, state.currentUser.telephone, false),
+                            Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                child: TextFormField(
+                                  controller: telephone,
+                                  cursorColor: Colors.grey.shade800,
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      decoration: TextDecoration.none),
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade500),
+                                      fillColor: Colors.grey.shade100,
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color.fromARGB(
+                                                  0, 0, 187, 212)),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                Color.fromARGB(0, 0, 187, 212)),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        icon: FaIcon(FontAwesomeIcons.check),
+                                        onPressed: () async {
+                                          String newTel =
+                                              await userRepo.editUserTelephone(
+                                                  telephone.text);
+                                          telephone.text = newTel;
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                      )),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -103,7 +145,11 @@ class Profile extends StatelessWidget {
                   print(state);
                 return Container();
               },
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is SuccessUserInfoState) {
+                  telephone.text = state.currentUser.telephone;
+                }
+              },
             )
           ]),
       bottomNavigationBar: Navbar(context, screen: 'profile'),
@@ -113,13 +159,13 @@ class Profile extends StatelessWidget {
   }
 }
 
-Widget _customTextForm(BuildContext context, value, isdisabled) {
+_customTextForm(BuildContext context, value) {
   return Container(
     child: Padding(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
         initialValue: value,
-        readOnly: isdisabled,
+        readOnly: true,
         cursorColor: Colors.grey.shade800,
         style: TextStyle(
             color: Colors.grey.shade600, decoration: TextDecoration.none),
