@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:petspot/Screens/find_form.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petspot/Screens/search_form.dart';
 import 'package:petspot/Screens/report_form.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
+import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 
 class FindOrReport extends StatelessWidget {
   const FindOrReport({super.key});
@@ -113,10 +115,10 @@ class FindOrReport extends StatelessWidget {
 
 navigateToFindForm(BuildContext context) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => const FindForm()));
+      context, MaterialPageRoute(builder: (context) => SearchPetForm()));
 }
 
 navigateToReportForm(BuildContext context) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => const ReportForm()));
+      context, MaterialPageRoute(builder: (context) => ReportForm()));
 }

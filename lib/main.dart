@@ -6,6 +6,7 @@ import 'package:petspot/Screens/login.dart';
 import 'package:petspot/bloc/auth/auth_bloc.dart';
 import 'package:petspot/bloc/missing/missing_bloc.dart';
 import 'package:petspot/bloc/reported/reported_bloc.dart';
+import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
 
 void main() async {
@@ -26,6 +27,7 @@ void main() async {
         BlocProvider(
           create: (context) => ReportedBloc()..add(GetAllReportedPetsEvent()),
         ),
+        BlocProvider(create: ((context) => SearchFormBloc()))
       ],
       child: MyApp(),
     ),
