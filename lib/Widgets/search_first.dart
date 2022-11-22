@@ -1,27 +1,42 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 
 class SearchFirst extends StatefulWidget {
-  const SearchFirst({super.key});
+  SearchFirst({super.key});
 
   @override
   State<SearchFirst> createState() => _SearchFirstState();
 }
 
+Future<List<String>>? _species;
+Future<List<String>>? _breeds;
 TextEditingController name = TextEditingController();
 
 enum Sex { male, female }
 
 enum Size { small, medium, large }
 
+var forms = Forms();
+
 class _SearchFirstState extends State<SearchFirst> {
+  void initState() {
+    super.initState();
+    _species = forms.getSpecies();
+  }
+
   Sex? _sex = Sex.male;
   Size? _size = Size.small;
+  String? selectedSpecie = null;
+  String? selectedBreed = null;
+
   @override
   Widget build(BuildContext context) {
-    var items = ['Item 1', 'Item 2'];
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 20),
@@ -65,91 +80,119 @@ class _SearchFirstState extends State<SearchFirst> {
                 )),
           ),
           ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonFormField(
-              dropdownColor: Colors.white,
-              menuMaxHeight: MediaQuery.of(context).size.height / 2,
-              decoration: InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: 'Especie',
-                  hintText: 'Seleccionar',
-                  labelStyle: TextStyle(color: Colors.grey.shade500),
-                  filled: true,
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 15 * MediaQuery.textScaleFactorOf(context),
-                  ),
-                  fillColor: Colors.grey.shade100,
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                  )),
-              style: TextStyle(
-                color: Colors.grey.shade600,
-                decoration: TextDecoration.none,
-                fontSize: 15 * MediaQuery.textScaleFactorOf(context),
-              ),
-              items: items.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              onChanged: ((value) {}),
-              icon: Icon(
-                // Add this
-                Icons.arrow_drop_down, // Add this
-                color: Colors.grey.shade500, // Add this
-              ),
-            ),
-          ),
+              alignedDropdown: true,
+              child: FutureBuilder<List<String>>(
+                  future: _species,
+                  builder: (context, AsyncSnapshot<List<String>> snapshot) {
+                    if (!snapshot.hasData)
+                      return CupertinoActivityIndicator(animating: true);
+
+                    return DropdownButtonFormField<String>(
+                      value: selectedSpecie,
+                      dropdownColor: Colors.white,
+                      menuMaxHeight: MediaQuery.of(context).size.height / 2,
+                      decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Especie',
+                          hintText: 'Seleccionar',
+                          labelStyle: TextStyle(color: Colors.grey.shade500),
+                          filled: true,
+                          hintStyle: TextStyle(
+                            color: Colors.grey.shade500,
+                            fontSize:
+                                15 * MediaQuery.textScaleFactorOf(context),
+                          ),
+                          fillColor: Colors.grey.shade100,
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(0, 0, 187, 212)),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(0, 0, 187, 212)),
+                          )),
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        decoration: TextDecoration.none,
+                        fontSize: 15 * MediaQuery.textScaleFactorOf(context),
+                      ),
+                      items: (snapshot.data)
+                          ?.map((specie) => DropdownMenuItem<String>(
+                                value: specie,
+                                child: Text(specie),
+                              ))
+                          .toList(),
+                      onChanged: ((selectedItem) {
+                        setState(() {
+                          selectedBreed = null;
+                          selectedSpecie = selectedItem;
+                          print(selectedSpecie);
+                          _breeds = forms.getBreeds(selectedSpecie.toString());
+                        });
+                      }),
+                      icon: Icon(
+                        // Add this
+                        Icons.arrow_drop_down, // Add this
+                        color: Colors.grey.shade500, // Add this
+                      ),
+                    );
+                  })),
           ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonFormField(
-              dropdownColor: Colors.white,
-              menuMaxHeight: MediaQuery.of(context).size.height / 2,
-              decoration: InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: 'Raza',
-                  hintText: 'Seleccionar',
-                  labelStyle: TextStyle(color: Colors.grey.shade500),
-                  filled: true,
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 15 * MediaQuery.textScaleFactorOf(context),
-                  ),
-                  fillColor: Colors.grey.shade100,
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                  )),
-              style: TextStyle(
-                color: Colors.grey.shade600,
-                decoration: TextDecoration.none,
-                fontSize: 15 * MediaQuery.textScaleFactorOf(context),
-              ),
-              items: items.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              onChanged: ((value) {}),
-              icon: Icon(
-                // Add this
-                Icons.arrow_drop_down, // Add this
-                color: Colors.grey.shade500, // Add this
-              ),
-            ),
-          ),
+              alignedDropdown: true,
+              child: FutureBuilder<List<String>>(
+                  future: _breeds,
+                  builder: (context, AsyncSnapshot<List<String>> snapshot) {
+                    if (!snapshot.hasData)
+                      return CupertinoActivityIndicator(animating: true);
+
+                    return DropdownButtonFormField<String>(
+                      value: selectedBreed,
+                      dropdownColor: Colors.white,
+                      menuMaxHeight: MediaQuery.of(context).size.height / 2,
+                      decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Raza',
+                          hintText: 'Seleccionar',
+                          labelStyle: TextStyle(color: Colors.grey.shade500),
+                          filled: true,
+                          hintStyle: TextStyle(
+                            color: Colors.grey.shade500,
+                            fontSize:
+                                15 * MediaQuery.textScaleFactorOf(context),
+                          ),
+                          fillColor: Colors.grey.shade100,
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(0, 0, 187, 212)),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(0, 0, 187, 212)),
+                          )),
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        decoration: TextDecoration.none,
+                        fontSize: 15 * MediaQuery.textScaleFactorOf(context),
+                      ),
+                      items: (snapshot.data)
+                          ?.map((breed) => DropdownMenuItem<String>(
+                                value: breed,
+                                child: Text(breed),
+                              ))
+                          .toList(),
+                      onChanged: ((selectedItem) {
+                        setState(() {
+                          selectedBreed = selectedItem;
+                          print(selectedBreed);
+                        });
+                      }),
+                      icon: Icon(
+                        // Add this
+                        Icons.arrow_drop_down, // Add this
+                        color: Colors.grey.shade500, // Add this
+                      ),
+                    );
+                  })),
           Text(
             'sexo',
             style: TextStyle(color: Colors.grey.shade600),

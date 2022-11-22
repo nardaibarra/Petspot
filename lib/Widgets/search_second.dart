@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 
 class SearchSecond extends StatefulWidget {
@@ -18,11 +19,8 @@ enum Sex { male, female }
 enum Size { small, medium, large }
 
 class _SearchSecondState extends State<SearchSecond> {
-  Sex? _sex = Sex.male;
-  Size? _size = Size.small;
   @override
   Widget build(BuildContext context) {
-    var items = ['Item 1', 'Item 2'];
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 20),
@@ -32,7 +30,10 @@ class _SearchSecondState extends State<SearchSecond> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<SearchFormBloc>(context)
+                      .add((PreviousSearchFormEvent()));
+                },
                 icon: FaIcon(FontAwesomeIcons.chevronLeft),
                 color: Colors.grey.shade600,
               ),
@@ -145,6 +146,11 @@ class _SearchSecondState extends State<SearchSecond> {
                 onPressed: (() {
                   BlocProvider.of<SearchFormBloc>(context)
                       .add((NextSearchFormEvent()));
+                  var forms = Forms();
+                  var species = forms.getSpecies();
+                  print(species);
+                  var breeds = forms.getBreeds('gato');
+                  print(breeds);
                 }),
                 child: Text(
                   'Publicar',

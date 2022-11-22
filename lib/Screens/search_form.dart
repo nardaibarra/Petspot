@@ -40,6 +40,8 @@ class _SearchPetFormState extends State<SearchPetForm> {
                   return SearchFirst();
                 } else if (state is SearchFormSecondStepState) {
                   return SearchSecond();
+                } else if (state is PreviousSearchFormEvent) {
+                  return SearchFirst();
                 } else
                   return SearchFirst();
               },
@@ -50,17 +52,4 @@ class _SearchPetFormState extends State<SearchPetForm> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
-}
-
-_searchSecondStep(BuildContext context) {
-  return Padding(
-    padding: EdgeInsets.only(left: 20),
-    child: Text(
-      'Paso 2/2',
-      style: TextStyle(
-          color: Colors.grey.shade500,
-          fontWeight: FontWeight.normal,
-          fontSize: 15),
-    ),
-  );
 }
