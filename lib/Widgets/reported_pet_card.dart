@@ -79,28 +79,38 @@ class _ReportedPetCardState extends State<ReportedPetCard> {
                         ]))),
             Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-                height: 95,
                 alignment: Alignment.bottomCenter,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Publicado por ${widget.pet.user}',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10)),
-                          IconButton(
-                            icon: Icon(FontAwesomeIcons.phone),
-                            color: Colors.black,
-                            onPressed: () async {
-                              FlutterPhoneDirectCaller.callNumber(
-                                  widget.pet.telephone);
-                            },
-                          ),
-                        ]))),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Publicado por ${widget.pet.user}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
+                      TextButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.all(0)),
+                        ),
+                        onPressed: () {},
+                        child: Text('Ver en mapa',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10)),
+                      ),
+                      IconButton(
+                        icon: Icon(FontAwesomeIcons.phone),
+                        color: Colors.black,
+                        onPressed: () async {
+                          FlutterPhoneDirectCaller.callNumber(
+                              widget.pet.telephone);
+                        },
+                      ),
+                    ])),
           ],
         )
       ],

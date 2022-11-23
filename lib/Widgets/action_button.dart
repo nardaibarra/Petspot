@@ -22,7 +22,6 @@ class ActionBtn extends StatelessWidget {
   }
 
   navigateToFindOrReport(BuildContext context) {
-    Navigator.of(context).pop();
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const FindOrReport()));
   }

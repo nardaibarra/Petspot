@@ -16,7 +16,7 @@ class MyPets extends StatelessWidget {
               padding: EdgeInsets.only(top: 30, left: 20, bottom: 10),
               width: MediaQuery.of(context).size.width * 0.7,
               child: Text(
-                'Tus reportes',
+                'Publicaciones',
                 style: TextStyle(
                     color: Colors.grey.shade800,
                     fontWeight: FontWeight.bold,

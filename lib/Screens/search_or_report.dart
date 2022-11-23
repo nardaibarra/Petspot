@@ -120,5 +120,5 @@ navigateToFindForm(BuildContext context) {
 
 navigateToReportForm(BuildContext context) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => ReportForm()));
+      context, MaterialPageRoute(builder: (context) => ReportPetForm()));
 }

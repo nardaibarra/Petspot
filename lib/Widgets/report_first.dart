@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Repositories/forms.dart';
-import 'package:petspot/bloc/search_form/search_form_bloc.dart';
+import 'package:petspot/bloc/report_form/report_form_bloc.dart';
 
-class SearchFirst extends StatefulWidget {
-  SearchFirst({super.key});
+class ReportFirst extends StatefulWidget {
+  ReportFirst({super.key});
 
   @override
-  State<SearchFirst> createState() => _SearchFirstState();
+  State<ReportFirst> createState() => _ReportFirstState();
 }
 
 Future<List<String>>? _species;
@@ -19,13 +19,13 @@ Future<List<String>>? _breeds;
 Future<List<String>>? _colors;
 TextEditingController name = TextEditingController();
 
-enum Sex { male, female }
+enum Sex { male, female, unknown }
 
 enum Size { small, medium, large }
 
 var forms = Forms();
 
-class _SearchFirstState extends State<SearchFirst> {
+class _ReportFirstState extends State<ReportFirst> {
   void initState() {
     super.initState();
     _species = forms.getSpecies();
@@ -60,26 +60,6 @@ class _SearchFirstState extends State<SearchFirst> {
                     fontSize: 15),
               )
             ],
-          ),
-          TextFormField(
-            controller: name,
-            cursorColor: Colors.grey.shade800,
-            style: TextStyle(
-                color: Colors.grey.shade600, decoration: TextDecoration.none),
-            decoration: InputDecoration(
-                hintText: 'nombre',
-                filled: true,
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade500,
-                ),
-                fillColor: Colors.grey.shade100,
-                enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                    borderRadius: BorderRadius.circular(10)),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                )),
           ),
           ButtonTheme(
               alignedDropdown: true,
@@ -133,7 +113,7 @@ class _SearchFirstState extends State<SearchFirst> {
                           selectedColor = null;
                           selectedSpecie = selectedItem;
                           _breeds = forms.getBreeds(
-                              selectedSpecie.toString(), 'search');
+                              selectedSpecie.toString(), 'report');
                           _colors = forms.getColors(selectedSpecie.toString());
                         });
                       }),
@@ -336,6 +316,36 @@ class _SearchFirstState extends State<SearchFirst> {
               ],
             ),
           ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.90,
+            child: ListTile(
+              horizontalTitleGap: 0,
+              dense: true,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              tileColor: Colors.grey.shade100,
+              textColor: Colors.grey.shade500,
+              iconColor: Colors.grey.shade800,
+              title: const Text(
+                'No lo sé',
+              ),
+              leading: FaIcon(FontAwesomeIcons.question),
+              trailing: Radio<Sex>(
+                activeColor: Color.fromARGB(255, 246, 232, 110),
+                value: Sex.unknown,
+                groupValue: _sex,
+                visualDensity: const VisualDensity(
+                  horizontal: VisualDensity.minimumDensity,
+                  vertical: VisualDensity.minimumDensity,
+                ),
+                onChanged: (Sex? value) {
+                  setState(() {
+                    _sex = value;
+                  });
+                },
+              ),
+            ),
+          ),
           Text(
             'talla',
             style: TextStyle(
@@ -442,8 +452,8 @@ class _SearchFirstState extends State<SearchFirst> {
             width: MediaQuery.of(context).size.width,
             child: OutlinedButton(
                 onPressed: (() {
-                  BlocProvider.of<SearchFormBloc>(context)
-                      .add((NextSearchFormEvent()));
+                  BlocProvider.of<ReportFormBloc>(context)
+                      .add((NextReportFormEvent()));
                 }),
                 child: Text(
                   'Continuar',

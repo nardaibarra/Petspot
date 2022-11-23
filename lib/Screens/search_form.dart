@@ -18,35 +18,37 @@ class _SearchPetFormState extends State<SearchPetForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 30, left: 20, bottom: 10),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                'Reportar a mi mascota',
-                style: TextStyle(
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25),
+      body: SingleChildScrollView(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 25, left: 20, bottom: 5),
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  'Reportar a mi mascota',
+                  style: TextStyle(
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25),
+                ),
               ),
-            ),
-            BlocConsumer<SearchFormBloc, SearchFormState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is SearchFormFirstStepState) {
-                  return SearchFirst();
-                } else if (state is SearchFormSecondStepState) {
-                  return SearchSecond();
-                } else if (state is PreviousSearchFormEvent) {
-                  return SearchFirst();
-                } else
-                  return SearchFirst();
-              },
-            ),
-          ]),
+              BlocConsumer<SearchFormBloc, SearchFormState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is SearchFormFirstStepState) {
+                    return SearchFirst();
+                  } else if (state is SearchFormSecondStepState) {
+                    return SearchSecond();
+                  } else if (state is PreviousSearchFormEvent) {
+                    return SearchFirst();
+                  } else
+                    return SearchFirst();
+                },
+              ),
+            ]),
+      ),
       bottomNavigationBar: Navbar(context, screen: ' '),
       floatingActionButton: ActionBtn(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
