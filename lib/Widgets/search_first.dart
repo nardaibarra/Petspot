@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Repositories/forms.dart';
+import 'package:petspot/Screens/search_or_report.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 
 class SearchFirst extends StatefulWidget {
@@ -48,7 +49,12 @@ class _SearchFirstState extends State<SearchFirst> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FindOrReport()));
+                },
                 icon: FaIcon(FontAwesomeIcons.chevronLeft),
                 color: Colors.grey.shade600,
               ),
