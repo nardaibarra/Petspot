@@ -8,6 +8,7 @@ import 'package:petspot/bloc/missing/missing_bloc.dart';
 import 'package:petspot/bloc/report_form/report_form_bloc.dart';
 import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
+import 'package:petspot/bloc/up_image/add_image_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
 
 void main() async {
@@ -28,8 +29,15 @@ void main() async {
         BlocProvider(
           create: (context) => ReportedBloc()..add(GetAllReportedPetsEvent()),
         ),
-        BlocProvider(create: (context) => SearchFormBloc()),
-        BlocProvider(create: (context) => ReportFormBloc())
+        BlocProvider(
+          create: (context) => SearchFormBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ReportFormBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AddImageBloc(),
+        )
       ],
       child: MyApp(),
     ),

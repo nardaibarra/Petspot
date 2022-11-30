@@ -31,12 +31,13 @@ dependencies:
     sdk: flutter
   equatable:
   flutter_bloc:
+  provider:
   font_awesome_flutter: ^10.2.1
   loading_animation_widget: ^1.2.0+3
   flutter_phone_direct_caller: ^2.1.1
   carousel_slider: ^4.1.1
   firebase_app_check: ^0.1.1+4
-  image_picker:
+  image_picker: ^0.8.6
   dotted_border: ^2.0.0+3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -46,6 +47,15 @@ dependencies:
   firebase_auth:
   flutterfire_ui:
   cloud_firestore:
+  firebase_storage:
+  #maps
+  geolocator: 
+  # Geocoding and reverse-geocoding: De direccion con texto a position(lat,lng) y de position (lat,lng) a direccion con texto.
+  geocoding: 
+  # Maps widget
+  google_maps_flutter:
+  flutter_polyline_points:
+  
   
 dev_dependencies:
   flutter_test:
