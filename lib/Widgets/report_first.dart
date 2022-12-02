@@ -29,7 +29,7 @@ var forms = Forms();
 class _ReportFirstState extends State<ReportFirst> {
   void initState() {
     super.initState();
-    _species = forms.getSpecies();
+    _species = forms.getSpecies('report');
   }
 
   Sex? _sex = Sex.male;
@@ -72,9 +72,6 @@ class _ReportFirstState extends State<ReportFirst> {
               child: FutureBuilder<List<String>>(
                   future: _species,
                   builder: (context, AsyncSnapshot<List<String>> snapshot) {
-                    if (!snapshot.hasData)
-                      return CupertinoActivityIndicator(animating: true);
-
                     return DropdownButtonFormField<String>(
                       value: selectedSpecie,
                       dropdownColor: Colors.white,

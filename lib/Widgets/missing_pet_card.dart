@@ -45,43 +45,33 @@ class _MissingPetCardState extends State<MissingPetCard> {
           children: [
             Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 10,
+                  horizontal: 15,
                 ),
-                height: 140,
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('${widget.pet.name} - ${widget.pet.specie}',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15)),
-                          Text('Talla:  ${widget.pet.size}',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10)),
-                          Text('Color:  ${widget.pet.color}',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10)),
-                          Text('Sexo:  ${widget.pet.sex}',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10)),
-                          Text('Raza:  ${widget.pet.breed}',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10)),
-                          Text(
-                              'Se perdio hace ${(DateTime.now().difference(DateTime.parse(widget.pet.timestamp.toDate().toString()))).inHours} horas a 10 km de ti',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10)),
-                        ]))),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('${widget.pet.name} - ${widget.pet.specie}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15)),
+                      Text('Talla:  ${widget.pet.size}',
+                          style: TextStyle(color: Colors.black, fontSize: 10)),
+                      Text('Color:  ${widget.pet.color}',
+                          style: TextStyle(color: Colors.black, fontSize: 10)),
+                      Text('Sexo:  ${widget.pet.sex}',
+                          style: TextStyle(color: Colors.black, fontSize: 10)),
+                      Text('Raza:  ${widget.pet.breed}',
+                          style: TextStyle(color: Colors.black, fontSize: 10)),
+                      Text(
+                          'Se perdió hace ${(DateTime.now().difference(DateTime.parse(widget.pet.timestamp.toDate().toString()))).inHours} horas a 10 km de ti',
+                          style: TextStyle(color: Colors.black, fontSize: 10)),
+                    ])),
             Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-                alignment: Alignment.bottomCenter,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Publicado por ${widget.pet.user}',
                           style: TextStyle(
@@ -89,9 +79,26 @@ class _MissingPetCardState extends State<MissingPetCard> {
                               fontWeight: FontWeight.bold,
                               fontSize: 10)),
                       TextButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.all(0)),
+                        style: TextButton.styleFrom(
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () {
+                          detailsDialog(context, widget.pet.details);
+                        },
+                        child: Text('Ver detalles',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10)),
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         onPressed: () {},
                         child: Text('Ver en mapa',
@@ -113,6 +120,26 @@ class _MissingPetCardState extends State<MissingPetCard> {
           ],
         )
       ],
+    );
+  }
+
+  detailsDialog(BuildContext context, String details) {
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.white,
+      titleTextStyle: TextStyle(color: Colors.grey.shade600),
+      title: Text("Detalles"),
+      content: Text(
+        details,
+        style: TextStyle(color: Colors.grey.shade700),
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

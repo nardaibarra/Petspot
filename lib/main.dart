@@ -10,6 +10,8 @@ import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 import 'package:petspot/bloc/up_image/add_image_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
+import 'package:petspot/providers/missing_filters.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +41,9 @@ void main() async {
           create: (context) => AddImageBloc(),
         )
       ],
-      child: MyApp(),
+      child: MultiProvider(providers: [
+        ChangeNotifierProvider(create: (_) => MissingFilters()),
+      ], child: MyApp()),
     ),
   );
 }

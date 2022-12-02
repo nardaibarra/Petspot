@@ -8,3 +8,19 @@ abstract class MissingEvent extends Equatable {
 }
 
 class GetAllMissingPetsEvent extends MissingEvent {}
+
+class FilterMissingPetsEvent extends MissingEvent {
+  final String specie;
+  final String breed;
+  final String color;
+  final String size;
+  final String sex;
+  FilterMissingPetsEvent(
+      {required this.specie,
+      required this.breed,
+      required this.color,
+      required this.size,
+      required this.sex});
+  @override
+  List<Object> get props => [specie, breed, color, size, sex];
+}

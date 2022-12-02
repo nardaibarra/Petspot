@@ -11,6 +11,7 @@ class MissingPet {
   final Timestamp timestamp;
   final String telephone;
   final String userId;
+  final String details;
   final List<dynamic> photos;
 
   MissingPet({
@@ -24,6 +25,7 @@ class MissingPet {
     required this.timestamp,
     required this.user,
     required this.userId,
+    required this.details,
     required this.photos,
   });
 }

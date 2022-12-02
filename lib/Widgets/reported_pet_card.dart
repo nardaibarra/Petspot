@@ -73,7 +73,7 @@ class _ReportedPetCardState extends State<ReportedPetCard> {
                               style:
                                   TextStyle(color: Colors.black, fontSize: 10)),
                           Text(
-                              'Se perdio hace ${(DateTime.now().difference(DateTime.parse(widget.pet.timestamp.toDate().toString()))).inHours} horas a 10 km de ti',
+                              'Se vio hace ${(DateTime.now().difference(DateTime.parse(widget.pet.timestamp.toDate().toString()))).inHours} horas a 10 km de ti',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 10)),
                         ]))),
