@@ -11,6 +11,7 @@ import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 import 'package:petspot/bloc/up_image/add_image_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
 import 'package:petspot/providers/missing_filters.dart';
+import 'package:petspot/providers/reported_filters.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -43,6 +44,7 @@ void main() async {
       ],
       child: MultiProvider(providers: [
         ChangeNotifierProvider(create: (_) => MissingFilters()),
+        ChangeNotifierProvider(create: (_) => ReportedFilters()),
       ], child: MyApp()),
     ),
   );

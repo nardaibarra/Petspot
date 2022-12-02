@@ -13,15 +13,15 @@ class ReportedPets {
   UserAuth auth = UserAuth();
 
   Future<List<dynamic>> getAllReportedPetsInfo() async {
-    List ReportedPetsList = [];
-    var ReportedPetsDataQuery = await _fireBaseStore
+    List reportedPetsList = [];
+    var reportedPetsDataQuery = await _fireBaseStore
         .collection('mascotas_vistas')
         .where('active', isEqualTo: true)
         .get();
-    var ReportedPetsDocs =
-        ReportedPetsDataQuery.docs.map((doc) => doc.data()).toList();
+    var reportedPetsDocs =
+        reportedPetsDataQuery.docs.map((doc) => doc.data()).toList();
 
-    ReportedPetsDocs.forEach((element) {
+    reportedPetsDocs.forEach((element) {
       String name = element['nombre'] ?? '-';
       String specie = element['especie'] ?? '-';
       String breed = element['raza'] ?? '-';
@@ -35,7 +35,7 @@ class ReportedPets {
       Timestamp timestamp = element['timestamp'] ?? Timestamp.now();
       print(photos);
       print(name);
-      ReportedPetsList.add(ReportedPet(
+      reportedPetsList.add(ReportedPet(
           specie: specie,
           breed: breed,
           color: color,
@@ -47,7 +47,71 @@ class ReportedPets {
           telephone: telephone,
           timestamp: timestamp));
     });
-    return ReportedPetsList;
+    return reportedPetsList;
+  }
+
+  Future<List<dynamic>> getAllReportedPetsFilteredInfo(
+      specie, breed, color, size, sex) async {
+    var specieFilter = specie;
+    var breedFilter = breed;
+    var colorFilter = color;
+    var sizeFilter = size;
+    var sexFilter = sex;
+
+    List reportedPetsList = [];
+
+    var reportedPetsDataQuery = await _fireBaseStore
+        .collection('mascotas_vistas')
+        .where('active', isEqualTo: true);
+
+    if (specieFilter != '' && specieFilter != 'todas') {
+      reportedPetsDataQuery =
+          reportedPetsDataQuery.where('especie', isEqualTo: specie);
+    }
+    if (breedFilter != '' && specieFilter != 'todas') {
+      reportedPetsDataQuery =
+          reportedPetsDataQuery.where('raza', isEqualTo: breed);
+    }
+    if (colorFilter != '' && specieFilter != 'todos') {
+      reportedPetsDataQuery =
+          reportedPetsDataQuery.where('color', isEqualTo: color);
+    }
+    if (sizeFilter != '') {
+      reportedPetsDataQuery =
+          reportedPetsDataQuery.where('talla', isEqualTo: size);
+    }
+    if (sexFilter != '') {
+      reportedPetsDataQuery =
+          reportedPetsDataQuery.where('sexo', isEqualTo: sex);
+    }
+    var query = await reportedPetsDataQuery.get();
+
+    var reportedPetsDocs = query.docs.map((doc) => doc.data()).toList();
+
+    reportedPetsDocs.forEach((element) {
+      String specie = element['especie'] ?? '-';
+      String breed = element['raza'] ?? '-';
+      String color = element['color'] ?? '-';
+      String size = element['talla'] ?? '-';
+      String user = element['usuario'] ?? '-';
+      String userId = element['usuarioId'] ?? '-';
+      List<dynamic> photos = element['fotos'] ?? [];
+      String telephone = element['telefono'] ?? '-';
+      String sex = element['sexo'] ?? '-';
+      Timestamp timestamp = element['timestamp'] ?? Timestamp.now();
+      reportedPetsList.add(ReportedPet(
+          specie: specie,
+          breed: breed,
+          color: color,
+          size: size,
+          user: user,
+          userId: userId,
+          photos: photos,
+          sex: sex,
+          telephone: telephone,
+          timestamp: timestamp));
+    });
+    return reportedPetsList;
   }
 
   ReportedPets._internal();
