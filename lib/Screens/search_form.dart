@@ -4,6 +4,10 @@ import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
 import 'package:petspot/Widgets/search_first.dart';
 import 'package:petspot/Widgets/search_second.dart';
+import 'package:petspot/Widgets/search_second_1images.dart';
+import 'package:petspot/Widgets/search_second_2image.dart';
+import 'package:petspot/Widgets/search_second_3image.dart';
+import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 
 class SearchPetForm extends StatefulWidget {
@@ -41,8 +45,18 @@ class _SearchPetFormState extends State<SearchPetForm> {
                     return SearchFirst();
                   } else if (state is SearchFormSecondStepState) {
                     return SearchSecond();
-                  } else if (state is PreviousSearchFormEvent) {
-                    return SearchFirst();
+                  } else if (state is FirstImageLoadingSucces) {
+                    return SearchSecondImage(
+                      Images: state.images,
+                    );
+                  } else if (state is secondImageLoadingSucces) {
+                    return SearchSecondImage2(
+                      Images: state.images,
+                    );
+                  } else if (state is thirdImageLoadingSucces) {
+                    return SearchSecondImage3(
+                      Images: state.images,
+                    );
                   } else
                     return SearchFirst();
                 },

@@ -4,21 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class Image {
-  static final Image _singleton = Image._internal();
-  File? _selectedPicture;
+class ImageRepo {
+  static final ImageRepo _singleton = ImageRepo._internal();
 
-  factory Image() {
+  factory ImageRepo() {
     return _singleton;
   }
 
-  Future<String> _uploadPictureStorage() async {
+  Future<String> uploadPictureStorage(File selectedPicture) async {
     try {
-      if (_selectedPicture == null) return "";
       var _stamp = DateTime.now();
       UploadTask _task = FirebaseStorage.instance
           .ref("/fshares/imagen_${_stamp}.png")
-          .putFile(_selectedPicture!);
+          .putFile(selectedPicture);
       await _task;
       return _task.storage
           .ref("/fshares/imagen_${_stamp}.png")
@@ -29,7 +27,7 @@ class Image {
     }
   }
 
-  Future<void> _getImage() async {
+  Future<File?> getImage() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxHeight: 720,
@@ -37,11 +35,11 @@ class Image {
       imageQuality: 85,
     );
     if (pickedFile != null) {
-      _selectedPicture = File(pickedFile.path);
+      return File(pickedFile.path);
     } else {
-      _selectedPicture != null ? _selectedPicture : null;
+      return pickedFile != null ? File(pickedFile.path) : null;
     }
   }
 
-  Image._internal();
+  ImageRepo._internal();
 }

@@ -25,3 +25,34 @@ class UpdatedDropdwonState extends SearchFormState {
   @override
   List<Object> get props => [breedDropDownValues];
 }
+
+class FirstImagSelecting extends SearchFormState {}
+
+class FirstImageLoading extends SearchFormState {}
+
+class FirstImageLoadingSucces extends SearchFormState {
+  final List<dynamic> images;
+  FirstImageLoadingSucces(this.images);
+  @override
+  List<Object> get props => [images];
+}
+
+class FirstImageLoadingError extends SearchFormState {}
+
+class secondImageLoadingSucces extends SearchFormState {
+  final List<dynamic> images;
+  secondImageLoadingSucces(this.images);
+  @override
+  List<Object> get props => [images];
+}
+
+class secondImageLoadingError extends SearchFormState {}
+
+class thirdImageLoadingSucces extends SearchFormState {
+  final List<dynamic> images;
+  thirdImageLoadingSucces(this.images);
+  @override
+  List<Object> get props => [images];
+}
+
+class thirdImageLoadingError extends SearchFormState {}

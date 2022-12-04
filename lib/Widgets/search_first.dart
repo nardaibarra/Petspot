@@ -445,8 +445,14 @@ class _SearchFirstState extends State<SearchFirst> {
             width: MediaQuery.of(context).size.width,
             child: OutlinedButton(
                 onPressed: (() {
-                  BlocProvider.of<SearchFormBloc>(context)
-                      .add((NextSearchFormEvent()));
+                  BlocProvider.of<SearchFormBloc>(context).add(
+                      (NextSearchFormEvent(
+                          name: name.text,
+                          sex: _sex!.toString(),
+                          size: _size!.toString(),
+                          selectedBreed: selectedBreed!,
+                          selectedColor: selectedColor!,
+                          selectedSpecie: selectedSpecie!)));
                 }),
                 child: Text(
                   'Continuar',

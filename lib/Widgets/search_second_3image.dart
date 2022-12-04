@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +10,12 @@ import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/Repositories/image.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 
-class SearchSecond extends StatefulWidget {
-  const SearchSecond({super.key});
+class SearchSecondImage3 extends StatefulWidget {
+  final List<dynamic> Images;
+  const SearchSecondImage3({super.key, required this.Images});
 
   @override
-  State<SearchSecond> createState() => _SearchSecondState();
+  State<SearchSecondImage3> createState() => _SearchSecondImage3State();
 }
 
 TextEditingController direction = TextEditingController();
@@ -26,7 +28,7 @@ enum Size { small, medium, large }
 var imageRepo = ImageRepo();
 File? selectedImage;
 
-class _SearchSecondState extends State<SearchSecond> {
+class _SearchSecondImage3State extends State<SearchSecondImage3> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -106,77 +108,31 @@ class _SearchSecondState extends State<SearchSecond> {
                   borderSide: BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
                 )),
           ),
+          Container(
+            height: 250,
+            child: CarouselSlider(
+              options: CarouselOptions(
+                aspectRatio: 1.8,
+                padEnds: true,
+                viewportFraction: 0.9,
+              ),
+              items: widget.Images.map((item) => Container(
+                    height: 250,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                          image: NetworkImage(item), fit: BoxFit.cover),
+                    ),
+                  )).toList(),
+            ),
+          ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text(
-              'Agrega fotos',
+              'maximo de fotos',
               style: TextStyle(color: Colors.grey.shade600),
             ),
           ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() async {
-                      selectedImage = await imageRepo.getImage();
-                      if (selectedImage != null) {
-                        BlocProvider.of<SearchFormBloc>(context)
-                            .add(AddImage1Succes(selectedImage!));
-                      } else {}
-                    }),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(),
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() {}),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(),
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() {}),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(),
-                  ),
-                ),
-              ),
-            ],
-          ),
           Container(
             padding: EdgeInsets.only(top: 10, bottom: 20),
             width: MediaQuery.of(context).size.width,
