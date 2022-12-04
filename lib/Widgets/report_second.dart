@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/bloc/report_form/report_form_bloc.dart';
+
+import '../Repositories/image.dart';
 
 class ReportSecond extends StatefulWidget {
   const ReportSecond({super.key});
@@ -13,6 +17,8 @@ class ReportSecond extends StatefulWidget {
 }
 
 TextEditingController name = TextEditingController();
+var imageRepo = ImageRepo();
+File? selectedImage;
 
 enum Sex { male, female }
 
@@ -89,7 +95,13 @@ class _ReportSecondState extends State<ReportSecond> {
                 child: DottedBorder(
                   radius: Radius.circular(20),
                   child: OutlinedButton(
-                    onPressed: (() {}),
+                    onPressed: (() async {
+                      selectedImage = await imageRepo.getImage();
+                      if (selectedImage != null) {
+                        BlocProvider.of<ReportFormBloc>(context)
+                            .add(AddImage1Succes(selectedImage!));
+                      } else {}
+                    }),
                     child: Align(
                       alignment: Alignment.center,
                       child: FaIcon(
@@ -158,7 +170,7 @@ class _ReportSecondState extends State<ReportSecond> {
             child: OutlinedButton(
                 onPressed: (() {
                   BlocProvider.of<ReportFormBloc>(context)
-                      .add((NextReportFormEvent()));
+                      .add((PostReportFormEvent()));
                 }),
                 child: Text(
                   'Publicar',

@@ -167,8 +167,8 @@ class _SearchSecondImage2State extends State<SearchSecondImage2> {
             width: MediaQuery.of(context).size.width,
             child: OutlinedButton(
                 onPressed: (() {
-                  BlocProvider.of<SearchFormBloc>(context)
-                      .add((PostSearchFormEvent(description.text)));
+                  BlocProvider.of<SearchFormBloc>(context).add(
+                      (PostSearchFormEvent(description: description.text)));
                 }),
                 child: Text(
                   'Publicar',

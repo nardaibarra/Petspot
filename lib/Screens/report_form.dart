@@ -4,7 +4,9 @@ import 'package:petspot/Widgets/Report_first.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
 import 'package:petspot/Widgets/report_second.dart';
+import 'package:petspot/Widgets/report_second_1image.dart';
 import '../bloc/report_form/report_form_bloc.dart';
+import 'home.dart';
 
 class ReportPetForm extends StatefulWidget {
   const ReportPetForm({super.key});
@@ -35,7 +37,19 @@ class _ReportPetFormState extends State<ReportPetForm> {
                 ),
               ),
               BlocConsumer<ReportFormBloc, ReportFormState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state is ReportFormSuccesfulPostState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('cargado')),
+                    );
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Home()));
+                  } else if (state is ReportFormErrorPostState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('error al cargar')),
+                    );
+                  }
+                },
                 builder: (context, state) {
                   if (state is ReportFormFirstStepState) {
                     return ReportFirst();
@@ -43,6 +57,10 @@ class _ReportPetFormState extends State<ReportPetForm> {
                     return ReportSecond();
                   } else if (state is PreviousReportFormEvent) {
                     return ReportFirst();
+                  } else if (state is FirstImageLoadingSucces) {
+                    return ReportSecondImage(
+                      Images: state.images,
+                    );
                   } else
                     return ReportFirst();
                 },

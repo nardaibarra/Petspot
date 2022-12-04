@@ -45,7 +45,7 @@ class NewSearchFormEvent extends SearchFormEvent {
 class PostSearchFormEvent extends SearchFormEvent {
   final String description;
 
-  PostSearchFormEvent(this.description);
+  PostSearchFormEvent({required this.description});
   @override
   List<Object> get props => [description];
 }

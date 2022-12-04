@@ -15,15 +15,12 @@ part 'search_form_event.dart';
 part 'search_form_state.dart';
 
 class SearchFormBloc extends Bloc<SearchFormEvent, SearchFormState> {
-  int imagecounter = 0;
-  bool mapflag = false;
   String? name;
   String? sex;
   String? size;
   String? selectedSpecie;
   String? selectedBreed;
   String? selectedColor;
-  String? details;
   double? lat;
   double? lng;
   List<dynamic> photos = [];
@@ -87,38 +84,36 @@ class SearchFormBloc extends Bloc<SearchFormEvent, SearchFormState> {
 
   FutureOr<void> _post(
       PostSearchFormEvent event, Emitter<SearchFormState> emit) async {
+    await getCurrentPosition();
     var currentUser = FirebaseAuth.instance.currentUser;
+
     try {
-      await addPost(currentUser);
+      await FirebaseFirestore.instance.collection('mascotas_perdidas').add({
+        'active': true,
+        'color': selectedColor,
+        'correoUsuario': currentUser!.email,
+        'especie': selectedSpecie,
+        'raza': selectedBreed,
+        'fotos': photos,
+        'nombre': name,
+        'sexo': sex,
+        'talla': size,
+        'telUsuario': currentUser.phoneNumber,
+        'detalles': event.description,
+        'timestamp': Timestamp.now(),
+        'latitud': lat,
+        'longitud': lng,
+        'usuario': currentUser.displayName,
+        'usuarioID': currentUser.uid
+      });
+      photos.clear();
       emit(SearchFormSuccesfulPostState());
     } catch (e) {
       emit(SearchFormErrorPostState());
     }
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> addPost(
-      User? currentUser) async {
-    return await FirebaseFirestore.instance
-        .collection('mascotas_perdidas')
-        .add({
-      'active': true,
-      'color': selectedColor,
-      'correoUsuario': currentUser!.email,
-      'especie': selectedBreed,
-      'fotos': photos,
-      'nombre': name,
-      'sexo': sex,
-      'talla': size,
-      'telUsuario': currentUser.phoneNumber,
-      'timestamp': Timestamp.now(),
-      'latitud': getCurrentlat(),
-      'longitud': getCurrentlng(),
-      'usuario': currentUser.displayName,
-      'usuarioID': currentUser.uid
-    });
-  }
-
-  Future<double> getCurrentlat() async {
+  Future<void> getCurrentPosition() async {
     // get current position
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied ||
@@ -131,22 +126,7 @@ class SearchFormBloc extends Bloc<SearchFormEvent, SearchFormState> {
     var currentPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    return currentPosition.latitude;
-  }
-
-  Future<double> getCurrentlng() async {
-    // get current position
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      permission = await Geolocator.requestPermission();
-    }
-
-    //  get current position
-
-    var currentPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    return currentPosition.longitude;
+    lat = currentPosition.latitude;
+    lng = currentPosition.longitude;
   }
 }

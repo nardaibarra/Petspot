@@ -15,11 +15,11 @@ class ImageRepo {
     try {
       var _stamp = DateTime.now();
       UploadTask _task = FirebaseStorage.instance
-          .ref("/fshares/imagen_${_stamp}.png")
+          .ref("/lostpets/imagen_${_stamp}.png")
           .putFile(selectedPicture);
       await _task;
       return _task.storage
-          .ref("/fshares/imagen_${_stamp}.png")
+          .ref("/lostpets/imagen_${_stamp}.png")
           .getDownloadURL();
     } catch (e) {
       print("No se pudo subir la imagen");

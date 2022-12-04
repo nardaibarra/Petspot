@@ -455,8 +455,15 @@ class _ReportFirstState extends State<ReportFirst> {
             width: MediaQuery.of(context).size.width,
             child: OutlinedButton(
                 onPressed: (() {
-                  BlocProvider.of<ReportFormBloc>(context)
-                      .add((NextReportFormEvent()));
+                  try {
+                    BlocProvider.of<ReportFormBloc>(context).add(
+                        (NextReportFormEvent(
+                            sex: _sex!.name,
+                            size: _size!.name,
+                            selectedBreed: selectedBreed!,
+                            selectedColor: selectedColor!,
+                            selectedSpecie: selectedSpecie!)));
+                  } catch (e) {}
                 }),
                 child: Text(
                   'Continuar',

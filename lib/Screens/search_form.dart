@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petspot/Screens/home.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
 import 'package:petspot/Widgets/search_first.dart';
@@ -39,7 +40,19 @@ class _SearchPetFormState extends State<SearchPetForm> {
                 ),
               ),
               BlocConsumer<SearchFormBloc, SearchFormState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state is SearchFormSuccesfulPostState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('cargado')),
+                    );
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Home()));
+                  } else if (state is SearchFormErrorPostState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('error al cargar')),
+                    );
+                  }
+                },
                 builder: (context, state) {
                   if (state is SearchFormFirstStepState) {
                     return SearchFirst();
