@@ -84,8 +84,9 @@ class SearchFormBloc extends Bloc<SearchFormEvent, SearchFormState> {
 
   FutureOr<void> _post(
       PostSearchFormEvent event, Emitter<SearchFormState> emit) async {
-    await getCurrentPosition();
+    //await getCurrentPosition();
     var currentUser = FirebaseAuth.instance.currentUser;
+    Geolocator geolocator = Geolocator();
 
     try {
       await FirebaseFirestore.instance.collection('mascotas_perdidas').add({
