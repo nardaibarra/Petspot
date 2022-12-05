@@ -10,6 +10,7 @@ import 'package:petspot/bloc/report_form/report_form_bloc.dart';
 import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
+import 'package:petspot/providers/maps_provider.dart';
 import 'package:petspot/providers/missing_filters.dart';
 import 'package:petspot/providers/reported_filters.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,7 @@ void main() async {
         )
       ],
       child: MultiProvider(providers: [
+        ChangeNotifierProvider(create: (_) => MapaProvider()),
         ChangeNotifierProvider(create: (_) => MissingFilters()),
         ChangeNotifierProvider(create: (_) => ReportedFilters()),
       ], child: MyApp()),

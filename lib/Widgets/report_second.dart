@@ -113,42 +113,6 @@ class _ReportSecondState extends State<ReportSecond> {
                   ),
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() {}),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(),
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() {}),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(),
-                  ),
-                ),
-              ),
             ],
           ),
           Padding(

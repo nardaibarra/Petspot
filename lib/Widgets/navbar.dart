@@ -10,6 +10,9 @@ import 'package:petspot/bloc/missing/missing_bloc.dart';
 import 'package:petspot/bloc/my_publications/my_publications_bloc.dart';
 import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/maps_provider.dart';
 
 class Navbar extends StatelessWidget {
   final String screen;
@@ -32,6 +35,8 @@ class Navbar extends StatelessWidget {
               IconButton(
                 icon: FaIcon(FontAwesomeIcons.bullhorn),
                 onPressed: () {
+                  Provider.of<MapaProvider>(context, listen: false)
+                      .clearMarkers();
                   navigateToHome(context);
                 },
                 color: screen == 'home'
@@ -44,6 +49,8 @@ class Navbar extends StatelessWidget {
               IconButton(
                 icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
                 onPressed: () {
+                  Provider.of<MapaProvider>(context, listen: false)
+                      .clearMarkers();
                   navigateToMissing(context);
                 },
                 color: screen == 'missing_list'
@@ -56,6 +63,8 @@ class Navbar extends StatelessWidget {
               IconButton(
                 icon: FaIcon(FontAwesomeIcons.dog),
                 onPressed: () {
+                  Provider.of<MapaProvider>(context, listen: false)
+                      .clearMarkers();
                   navigateToMyPets(context);
                 },
                 color: screen == 'my_pets'
@@ -68,6 +77,8 @@ class Navbar extends StatelessWidget {
               IconButton(
                 icon: FaIcon(FontAwesomeIcons.user),
                 onPressed: () {
+                  Provider.of<MapaProvider>(context, listen: false)
+                      .clearMarkers();
                   navigateToProfile(context);
                 },
                 color: screen == 'profile'

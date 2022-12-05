@@ -18,12 +18,69 @@ class MapaProvider with ChangeNotifier {
     heading: 0.0,
   );
 
+  double _longitud = 0;
+  double _latitud = 0;
+
+  double get getLatitud => _latitud;
+
+  saveLatitud(double latitud) {
+    _latitud = latitud;
+    notifyListeners();
+  }
+
+  double get getLongitud => _longitud;
+
+  savelongitud(double longitud) {
+    _longitud = longitud;
+    notifyListeners();
+  }
+
   // 2)
   Future<void> onMapCreated(controller) async {
     // inicio controler
     mapController = controller;
-    await getCurrentPosition();
+    await petMarkers(getLatitud, getLongitud);
     notifyListeners();
+  }
+
+  Future<void> petMarkers(double latitud, double longitud) async {
+    await getCurrentPosition();
+
+    Position petPosition = Position(
+        longitude: longitud,
+        latitude: latitud,
+        timestamp: DateTime.now(),
+        accuracy: 0,
+        altitude: 0,
+        heading: 0,
+        speed: 0,
+        speedAccuracy: 0);
+    //String _petAdress = await _getGeocodingAddress(petPosition);
+
+    mapMarkers.add(
+      Marker(
+        markerId: MarkerId(petPosition.toString()),
+        position: LatLng(petPosition.latitude, petPosition.longitude),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        infoWindow: InfoWindow(
+          title: petPosition.toString(),
+          //snippet: _petAdress,
+        ),
+      ),
+    );
+
+    mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(petPosition.latitude, petPosition.longitude),
+          zoom: 15.0,
+        ),
+      ),
+    );
+  }
+
+  void clearMarkers() {
+    mapMarkers.clear();
   }
 
   // 4)
@@ -86,15 +143,6 @@ class MapaProvider with ChangeNotifier {
     );
     notifyListeners();
     // move camera to the current user's location
-
-    mapController?.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-          zoom: 15.0,
-        ),
-      ),
-    );
   }
 
   // 5)
