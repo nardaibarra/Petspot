@@ -84,7 +84,8 @@ class _MissingListState extends State<MissingList> {
                             itemBuilder: (BuildContext context, index) {
                               return GestureDetector(
                                 child: MissingPetCard(
-                                    pet: state.listElements[index]),
+                                    pet: state.listElements[index],
+                                    position: state.position),
                               );
                             },
                           ));

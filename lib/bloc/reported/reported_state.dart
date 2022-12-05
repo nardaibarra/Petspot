@@ -11,7 +11,8 @@ class ReportedInitial extends ReportedState {}
 
 class ReportedPetsSuccessState extends ReportedState {
   final List<dynamic> listElements;
-  ReportedPetsSuccessState(this.listElements);
+  final Position position;
+  ReportedPetsSuccessState(this.listElements, this.position);
   @override
   List<Object> get props => [listElements];
 }

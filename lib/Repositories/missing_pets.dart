@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:petspot/Repositories/user_auth.dart';
 import 'package:petspot/classes/missingPet.dart';
@@ -20,7 +21,7 @@ class MissingPets {
         .get();
     var missingPetsDocs =
         missingPetsDataQuery.docs.map((doc) => doc.data()).toList();
-
+    Position? positionL;
     missingPetsDocs.forEach((element) {
       String name = element['nombre'] ?? '-';
       String specie = element['especie'] ?? '-';
@@ -34,6 +35,8 @@ class MissingPets {
       String telephone = element['telefono'] ?? '-';
       String sex = element['sexo'] ?? '-';
       Timestamp timestamp = element['timestamp'] ?? Timestamp.now();
+      double latitud = element['latitud'] ?? 0;
+      double longitud = element['longitud'] ?? 0;
       print(photos);
       print(name);
       missingPetsList.add(MissingPet(
@@ -48,7 +51,9 @@ class MissingPets {
           sex: sex,
           telephone: telephone,
           details: details,
-          timestamp: timestamp));
+          timestamp: timestamp,
+          latitud: latitud,
+          longitud: longitud));
     });
     return missingPetsList;
   }
@@ -101,6 +106,9 @@ class MissingPets {
       String telephone = element['telefono'] ?? '-';
       String sex = element['sexo'] ?? '-';
       Timestamp timestamp = element['timestamp'] ?? Timestamp.now();
+      double latitud = element['latitud'] ?? 0;
+      double longitud = element['longitud'] ?? 0;
+
       print(photos);
       print(name);
       missingPetsList.add(MissingPet(
@@ -115,7 +123,9 @@ class MissingPets {
           sex: sex,
           details: details,
           telephone: telephone,
-          timestamp: timestamp));
+          timestamp: timestamp,
+          latitud: latitud,
+          longitud: longitud));
     });
     return missingPetsList;
   }

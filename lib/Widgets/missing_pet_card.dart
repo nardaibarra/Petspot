@@ -2,11 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:petspot/classes/missingPet.dart';
 
 class MissingPetCard extends StatefulWidget {
   final MissingPet pet;
-  MissingPetCard({super.key, required this.pet});
+  final Position position;
+  MissingPetCard({super.key, required this.pet, required this.position});
 
   @override
   State<MissingPetCard> createState() => _MissingPetCardState();
@@ -65,7 +67,7 @@ class _MissingPetCardState extends State<MissingPetCard> {
                       Text('Raza:  ${widget.pet.breed}',
                           style: TextStyle(color: Colors.black, fontSize: 10)),
                       Text(
-                          'Se perdió hace ${(DateTime.now().difference(DateTime.parse(widget.pet.timestamp.toDate().toString()))).inHours} horas a 10 km de ti',
+                          'Se perdió hace ${(DateTime.now().difference(DateTime.parse(widget.pet.timestamp.toDate().toString()))).inHours} horas a ${((Geolocator.distanceBetween(widget.pet.latitud, widget.pet.longitud, widget.position.latitude, widget.position.longitude)) / 1000).toStringAsFixed(1)} km de ti',
                           style: TextStyle(color: Colors.black, fontSize: 10)),
                     ])),
             Container(

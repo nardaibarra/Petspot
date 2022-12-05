@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:petspot/Repositories/reported_pets.dart';
 
 part 'reported_event.dart';
@@ -18,10 +19,11 @@ class ReportedBloc extends Bloc<ReportedEvent, ReportedState> {
 
     try {
       ReportedPets reportedPets = ReportedPets();
+      Position position = await getCurrentPosition();
       List<dynamic> reportedPetsList =
           await reportedPets.getAllReportedPetsInfo();
       print(reportedPetsList);
-      emit(ReportedPetsSuccessState(reportedPetsList));
+      emit(ReportedPetsSuccessState(reportedPetsList, position));
     } catch (e) {
       print(e);
     }
@@ -33,12 +35,27 @@ class ReportedBloc extends Bloc<ReportedEvent, ReportedState> {
 
     try {
       ReportedPets reportedPets = ReportedPets();
+      Position position = await getCurrentPosition();
       List<dynamic> reportedPetsList =
           await reportedPets.getAllReportedPetsFilteredInfo(
               event.specie, event.breed, event.color, event.size, event.sex);
-      emit(ReportedPetsSuccessState(reportedPetsList));
+      emit(ReportedPetsSuccessState(reportedPetsList, position));
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<Position> getCurrentPosition() async {
+    // get current position
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    //  get current position
+
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 }

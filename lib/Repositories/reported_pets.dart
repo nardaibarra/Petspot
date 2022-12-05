@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:petspot/Repositories/user_auth.dart';
 import 'package:petspot/classes/reportedPet.dart';
@@ -11,7 +12,15 @@ class ReportedPets {
     return _singleton;
   }
   UserAuth auth = UserAuth();
-
+  Position nullPosition = Position(
+      longitude: 0,
+      latitude: 0,
+      timestamp: null,
+      accuracy: 0,
+      altitude: 0,
+      heading: 0,
+      speed: 0,
+      speedAccuracy: 0);
   Future<List<dynamic>> getAllReportedPetsInfo() async {
     List reportedPetsList = [];
     var reportedPetsDataQuery = await _fireBaseStore
@@ -20,7 +29,6 @@ class ReportedPets {
         .get();
     var reportedPetsDocs =
         reportedPetsDataQuery.docs.map((doc) => doc.data()).toList();
-
     reportedPetsDocs.forEach((element) {
       String name = element['nombre'] ?? '-';
       String specie = element['especie'] ?? '-';
@@ -33,6 +41,8 @@ class ReportedPets {
       String telephone = element['telefono'] ?? '-';
       String sex = element['sexo'] ?? '-';
       Timestamp timestamp = element['timestamp'] ?? Timestamp.now();
+      double latitud = element['latitud'] ?? 0;
+      double longitud = element['longitud'] ?? 0;
       print(photos);
       print(name);
       reportedPetsList.add(ReportedPet(
@@ -45,7 +55,9 @@ class ReportedPets {
           photos: photos,
           sex: sex,
           telephone: telephone,
-          timestamp: timestamp));
+          timestamp: timestamp,
+          latitud: latitud,
+          longitud: longitud));
     });
     return reportedPetsList;
   }
@@ -87,7 +99,6 @@ class ReportedPets {
     var query = await reportedPetsDataQuery.get();
 
     var reportedPetsDocs = query.docs.map((doc) => doc.data()).toList();
-
     reportedPetsDocs.forEach((element) {
       String specie = element['especie'] ?? '-';
       String breed = element['raza'] ?? '-';
@@ -99,6 +110,8 @@ class ReportedPets {
       String telephone = element['telefono'] ?? '-';
       String sex = element['sexo'] ?? '-';
       Timestamp timestamp = element['timestamp'] ?? Timestamp.now();
+      double latitud = element['latitud'] ?? 0;
+      double longitud = element['longitud'] ?? 0;
       reportedPetsList.add(ReportedPet(
           specie: specie,
           breed: breed,
@@ -109,7 +122,9 @@ class ReportedPets {
           photos: photos,
           sex: sex,
           telephone: telephone,
-          timestamp: timestamp));
+          timestamp: timestamp,
+          latitud: latitud,
+          longitud: longitud));
     });
     return reportedPetsList;
   }

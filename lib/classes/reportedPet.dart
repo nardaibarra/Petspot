@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 
 class ReportedPet {
   final String specie;
@@ -11,6 +12,8 @@ class ReportedPet {
   final String telephone;
   final String userId;
   final List<dynamic> photos;
+  final double latitud;
+  final double longitud;
 
   ReportedPet({
     required this.specie,
@@ -23,5 +26,7 @@ class ReportedPet {
     required this.user,
     required this.userId,
     required this.photos,
+    required this.latitud,
+    required this.longitud,
   });
 }

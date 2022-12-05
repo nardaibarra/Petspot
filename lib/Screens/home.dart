@@ -82,7 +82,8 @@ class _HomeState extends State<Home> {
                             itemBuilder: (BuildContext context, index) {
                               return GestureDetector(
                                 child: ReportedPetCard(
-                                    pet: state.listElements[index]),
+                                    pet: state.listElements[index],
+                                    position: state.position),
                               );
                             },
                           ));
