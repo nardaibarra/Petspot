@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petspot/Screens/home.dart';
+import 'package:petspot/Screens/missing_list.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
 import 'package:petspot/Widgets/search_first.dart';
@@ -45,8 +46,10 @@ class _SearchPetFormState extends State<SearchPetForm> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('cargado')),
                     );
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Home()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MissingList()));
                   } else if (state is SearchFormErrorPostState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('error al cargar')),

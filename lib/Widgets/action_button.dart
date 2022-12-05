@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petspot/Screens/search_or_report.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/maps_provider.dart';
 
 class ActionBtn extends StatelessWidget {
   const ActionBtn({
@@ -14,6 +17,7 @@ class ActionBtn extends StatelessWidget {
       child: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
+          Provider.of<MapaProvider>(context, listen: false).clearMarkers();
           navigateToFindOrReport(context);
         },
         backgroundColor: Color.fromARGB(255, 246, 232, 110),

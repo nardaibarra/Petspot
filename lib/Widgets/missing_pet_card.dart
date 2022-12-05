@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:petspot/Screens/maps.dart';
 import 'package:petspot/classes/missingPet.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/maps_provider.dart';
 
 class MissingPetCard extends StatefulWidget {
   final MissingPet pet;
@@ -102,7 +106,16 @@ class _MissingPetCardState extends State<MissingPetCard> {
                           padding: EdgeInsets.zero,
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<MapaProvider>(context, listen: false)
+                              .saveLatitud(widget.pet.latitud);
+                          Provider.of<MapaProvider>(context, listen: false)
+                              .savelongitud(widget.pet.longitud);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => mapsPage()));
+                        },
                         child: Text('Ver en mapa',
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
