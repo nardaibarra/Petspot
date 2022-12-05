@@ -112,71 +112,32 @@ class _SearchSecondState extends State<SearchSecond> {
               style: TextStyle(color: Colors.grey.shade600),
             ),
           ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() async {
-                      selectedImage = await imageRepo.getImage();
-                      if (selectedImage != null) {
-                        BlocProvider.of<SearchFormBloc>(context)
-                            .add(AddImage1Succes(selectedImage!));
-                      } else {}
-                    }),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            Container(
+              width: MediaQuery.of(context).size.width / 4,
+              height: MediaQuery.of(context).size.width / 4,
+              child: DottedBorder(
+                radius: Radius.circular(20),
+                child: OutlinedButton(
+                  onPressed: (() async {
+                    selectedImage = await imageRepo.getImage();
+                    if (selectedImage != null) {
+                      BlocProvider.of<SearchFormBloc>(context)
+                          .add(AddImage1Succes(selectedImage!));
+                    } else {}
+                  }),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: FaIcon(
+                      FontAwesomeIcons.upload,
+                      color: Colors.grey.shade600,
                     ),
-                    style: OutlinedButton.styleFrom(),
                   ),
+                  style: OutlinedButton.styleFrom(),
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() {}),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(),
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 4,
-                child: DottedBorder(
-                  radius: Radius.circular(20),
-                  child: OutlinedButton(
-                    onPressed: (() {}),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.upload,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ]),
           Container(
             padding: EdgeInsets.only(top: 10, bottom: 20),
             width: MediaQuery.of(context).size.width,
