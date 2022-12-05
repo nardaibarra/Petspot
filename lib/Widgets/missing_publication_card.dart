@@ -1,11 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petspot/bloc/my_publications/my_publications_bloc.dart';
 import 'package:petspot/classes/missingPublication.dart';
 
 class MissingPublicationCard extends StatefulWidget {
   final MissingPublication pet;
   final bool active;
-  MissingPublicationCard({super.key, required this.pet, required this.active});
+  final String postType;
+  MissingPublicationCard(
+      {super.key,
+      required this.pet,
+      required this.active,
+      required this.postType});
 
   @override
   State<MissingPublicationCard> createState() => _MissingPublicationCardState();
@@ -74,7 +81,13 @@ class _MissingPublicationCardState extends State<MissingPublicationCard> {
                             padding: EdgeInsets.zero,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            BlocProvider.of<MyPublicationsBloc>(context)
+                                .add(DeactivatePostEvent(
+                              docId: widget.pet.docId,
+                              postType: widget.postType,
+                            ));
+                          },
                           child: Text(
                             'desactivar',
                             style: TextStyle(

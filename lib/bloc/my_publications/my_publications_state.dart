@@ -25,18 +25,14 @@ class MyPetsSuccesfulState extends MyPublicationsState {
   List<Object> get props => [activeListElements, inactiveListElements];
 }
 
-class MyReportsLoadingState extends MyPublicationsState {}
-
-class MyPetsLoadingState extends MyPublicationsState {}
+class MyPublicationsLoadingState extends MyPublicationsState {}
 
 class MyReportsErrorState extends MyPublicationsState {}
 
 class MyPetsErrorState extends MyPublicationsState {}
 
-class MyReportsDeactivateSuccesfulState extends MyPublicationsState {}
+class DeactivateSuccesfulState extends MyPublicationsState {}
 
-class MyPetsDeactivateSuccesfulState extends MyPublicationsState {}
+class DeactivateErrorState extends MyPublicationsState {}
 
-class MyReportsDeactivateErrorState extends MyPublicationsState {}
-
-class MyPetsDeactivateErrorState extends MyPublicationsState {}
+class MyPublicationsAnonymousState extends MyPublicationsState {}

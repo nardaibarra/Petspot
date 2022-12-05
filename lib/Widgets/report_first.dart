@@ -20,9 +20,9 @@ Future<List<String>>? _breeds;
 Future<List<String>>? _colors;
 TextEditingController name = TextEditingController();
 
-enum Sex { male, female, unknown }
+enum Sex { macho, hembra, desconocido }
 
-enum Size { small, medium, large }
+enum Size { chico, mediano, grande }
 
 var forms = Forms();
 
@@ -32,8 +32,8 @@ class _ReportFirstState extends State<ReportFirst> {
     _species = forms.getSpecies('report');
   }
 
-  Sex? _sex = Sex.male;
-  Size? _size = Size.small;
+  Sex? _sex = Sex.macho;
+  Size? _size = Size.chico;
   String? selectedSpecie = null;
   String? selectedBreed = null;
   String? selectedColor = null;
@@ -272,7 +272,7 @@ class _ReportFirstState extends State<ReportFirst> {
                     leading: FaIcon(FontAwesomeIcons.mars),
                     trailing: Radio<Sex>(
                       activeColor: Color.fromARGB(255, 246, 232, 110),
-                      value: Sex.male,
+                      value: Sex.macho,
                       groupValue: _sex,
                       visualDensity: const VisualDensity(
                         horizontal: VisualDensity.minimumDensity,
@@ -302,7 +302,7 @@ class _ReportFirstState extends State<ReportFirst> {
                     leading: FaIcon(FontAwesomeIcons.venus),
                     trailing: Radio<Sex>(
                       activeColor: Color.fromARGB(255, 246, 232, 110),
-                      value: Sex.female,
+                      value: Sex.hembra,
                       groupValue: _sex,
                       visualDensity: const VisualDensity(
                         horizontal: VisualDensity.minimumDensity,
@@ -335,7 +335,7 @@ class _ReportFirstState extends State<ReportFirst> {
               leading: FaIcon(FontAwesomeIcons.question),
               trailing: Radio<Sex>(
                 activeColor: Color.fromARGB(255, 246, 232, 110),
-                value: Sex.unknown,
+                value: Sex.desconocido,
                 groupValue: _sex,
                 visualDensity: const VisualDensity(
                   horizontal: VisualDensity.minimumDensity,
@@ -375,7 +375,7 @@ class _ReportFirstState extends State<ReportFirst> {
                     ),
                     trailing: Radio<Size>(
                       activeColor: Color.fromARGB(255, 246, 232, 110),
-                      value: Size.small,
+                      value: Size.chico,
                       groupValue: _size,
                       visualDensity: const VisualDensity(
                         horizontal: VisualDensity.minimumDensity,
@@ -404,7 +404,7 @@ class _ReportFirstState extends State<ReportFirst> {
                     ),
                     trailing: Radio<Size>(
                       activeColor: Color.fromARGB(255, 246, 232, 110),
-                      value: Size.medium,
+                      value: Size.mediano,
                       groupValue: _size,
                       visualDensity: const VisualDensity(
                         horizontal: VisualDensity.minimumDensity,
@@ -433,7 +433,7 @@ class _ReportFirstState extends State<ReportFirst> {
                     ),
                     trailing: Radio<Size>(
                       activeColor: Color.fromARGB(255, 246, 232, 110),
-                      value: Size.large,
+                      value: Size.grande,
                       groupValue: _size,
                       visualDensity: const VisualDensity(
                         horizontal: VisualDensity.minimumDensity,

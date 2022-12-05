@@ -17,6 +17,8 @@ class SearchFormSecondStepState extends SearchFormState {}
 
 class SearchFormSuccesfulPostState extends SearchFormState {}
 
+class SearchFormAnonymousState extends SearchFormState {}
+
 class SearchFormErrorPostState extends SearchFormState {}
 
 class UpdatedDropdwonState extends SearchFormState {

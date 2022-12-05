@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:petspot/Repositories/missing_pets.dart';
+import 'package:petspot/Repositories/user_auth.dart';
 
 part 'missing_event.dart';
 part 'missing_state.dart';
@@ -16,6 +17,7 @@ class MissingBloc extends Bloc<MissingEvent, MissingState> {
 
   FutureOr<void> _getAllMissingPets(
       MissingEvent event, Emitter<MissingState> emit) async {
+    UserAuth auth = UserAuth();
     emit(MissingPetsLoadingState());
 
     try {

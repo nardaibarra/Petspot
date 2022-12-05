@@ -10,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/Repositories/image.dart';
+import 'package:petspot/Repositories/user_auth.dart';
 
 part 'search_form_event.dart';
 part 'search_form_state.dart';
@@ -27,6 +28,7 @@ class SearchFormBloc extends Bloc<SearchFormEvent, SearchFormState> {
   var imageRepo = ImageRepo();
 
   SearchFormBloc() : super(SearchFormInitial()) {
+    on<NewSearchFormEvent>(_getForm);
     on<NextSearchFormEvent>(_navigateNext);
     on<PreviousSearchFormEvent>(_navigatePrevious);
     on<AddImage1Succes>(_addImage1);
@@ -129,5 +131,15 @@ class SearchFormBloc extends Bloc<SearchFormEvent, SearchFormState> {
 
     lat = currentPosition.latitude;
     lng = currentPosition.longitude;
+  }
+
+  FutureOr<void> _getForm(
+      NewSearchFormEvent event, Emitter<SearchFormState> emit) {
+    UserAuth auth = UserAuth();
+    if (auth.isAnonymous()) {
+      emit(SearchFormAnonymousState());
+    } else {
+      emit(SearchFormFirstStepState());
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:petspot/Repositories/my_publications.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/missing_publication_card.dart';
@@ -17,9 +18,8 @@ class MyPets extends StatefulWidget {
   State<MyPets> createState() => _MyPetsState();
 }
 
-String screen = 'myPets';
-
 class _MyPetsState extends State<MyPets> {
+  String screen = 'myPets';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,7 @@ class _MyPetsState extends State<MyPets> {
                   TextButton(
                       onPressed: () {
                         setState(() {
-                          screen = 'MyPets';
+                          screen = 'myPets';
                         });
                         BlocProvider.of<MyPublicationsBloc>(context)
                             .add(GetMyPetsEvent());
@@ -59,7 +59,7 @@ class _MyPetsState extends State<MyPets> {
                   TextButton(
                       onPressed: () {
                         setState(() {
-                          screen = 'MyReports';
+                          screen = 'myReports';
                         });
                         BlocProvider.of<MyPublicationsBloc>(context)
                             .add(GetMyRerportsEvent());
@@ -75,6 +75,32 @@ class _MyPetsState extends State<MyPets> {
               BlocConsumer<MyPublicationsBloc, MyPublicationsState>(
                   listener: (context, state) {},
                   builder: (context, state) {
+                    if (state is MyPublicationsAnonymousState) {
+                      return Column(children: [
+                        Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Text(
+                              'Haz login para poder publicar a tu mascota.',
+                              style: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontSize: 12,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ]);
+                    }
+                    if (state is MyPublicationsLoadingState) {
+                      return Center(
+                        child: LoadingAnimationWidget.twistingDots(
+                          leftDotColor: Color.fromARGB(255, 246, 232, 110),
+                          rightDotColor: Color.fromARGB(255, 246, 232, 110),
+                          size: 200,
+                        ),
+                      );
+                    }
                     if (state is MyReportsSuccesfulState) {
                       return SingleChildScrollView(
                         child: Column(children: [
@@ -102,6 +128,7 @@ class _MyPetsState extends State<MyPets> {
                                 itemBuilder: (BuildContext context, index) {
                                   return GestureDetector(
                                     child: ReportedPublicationCard(
+                                      postType: 'mascotas_vistas',
                                       pet: state.activeListElements[index],
                                       active: true,
                                     ),
@@ -131,7 +158,8 @@ class _MyPetsState extends State<MyPets> {
                                 itemCount: state.inactiveListElements.length,
                                 itemBuilder: (BuildContext context, index) {
                                   return GestureDetector(
-                                    child: MissingPublicationCard(
+                                    child: ReportedPublicationCard(
+                                      postType: 'mascotas_vistas',
                                       pet: state.inactiveListElements[index] ??
                                           '',
                                       active: false,
@@ -168,6 +196,7 @@ class _MyPetsState extends State<MyPets> {
                                 itemBuilder: (BuildContext context, index) {
                                   return GestureDetector(
                                     child: MissingPublicationCard(
+                                      postType: 'mascotas_perdidas',
                                       pet: state.activeListElements[index],
                                       active: true,
                                     ),
@@ -198,6 +227,7 @@ class _MyPetsState extends State<MyPets> {
                                 itemBuilder: (BuildContext context, index) {
                                   return GestureDetector(
                                     child: MissingPublicationCard(
+                                      postType: 'mascotas_perdidas',
                                       pet: state.inactiveListElements[index] ??
                                           '',
                                       active: false,

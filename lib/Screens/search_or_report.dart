@@ -68,6 +68,8 @@ class FindOrReport extends StatelessWidget {
               ),
               // ),
               onPressed: () {
+                BlocProvider.of<SearchFormBloc>(context)
+                    .add(NewSearchFormEvent());
                 navigateToFindForm(context);
               },
             )),
