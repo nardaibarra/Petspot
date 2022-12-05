@@ -51,13 +51,13 @@ class _ReportedPetCardState extends State<ReportedPetCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
+                width: MediaQuery.of(context).size.width / 2.3,
                 padding: EdgeInsets.symmetric(
                   horizontal: 10,
                 ),
-                height: 140,
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
+                    padding: EdgeInsets.symmetric(vertical: 0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -84,21 +84,23 @@ class _ReportedPetCardState extends State<ReportedPetCard> {
                                   TextStyle(color: Colors.black, fontSize: 10)),
                         ]))),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                alignment: Alignment.bottomCenter,
+                width: MediaQuery.of(context).size.width / 2.3,
+                padding: EdgeInsets.symmetric(horizontal: 5),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Publicado por ${widget.pet.user}',
+                          textAlign: TextAlign.right,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 10)),
                       TextButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.all(0)),
+                        style: TextButton.styleFrom(
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         onPressed: () {
                           Provider.of<MapaProvider>(context, listen: false)

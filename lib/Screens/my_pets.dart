@@ -44,11 +44,11 @@ class _MyPetsState extends State<MyPets> {
                 child: Row(children: [
                   TextButton(
                       onPressed: () {
-                        BlocProvider.of<MyPublicationsBloc>(context)
-                            .add(GetMyPetsEvent());
                         setState(() {
                           screen = 'MyPets';
                         });
+                        BlocProvider.of<MyPublicationsBloc>(context)
+                            .add(GetMyPetsEvent());
                       },
                       child: Text('Mis mascotas',
                           style: TextStyle(
@@ -58,11 +58,11 @@ class _MyPetsState extends State<MyPets> {
                           ))),
                   TextButton(
                       onPressed: () {
-                        BlocProvider.of<MyPublicationsBloc>(context)
-                            .add(GetMyRerportsEvent());
                         setState(() {
                           screen = 'MyReports';
                         });
+                        BlocProvider.of<MyPublicationsBloc>(context)
+                            .add(GetMyRerportsEvent());
                       },
                       child: Text('Mis reportes',
                           style: TextStyle(
@@ -93,7 +93,7 @@ class _MyPetsState extends State<MyPets> {
                             ),
                           ),
                           Container(
-                              padding: EdgeInsets.only(bottom: 30),
+                              padding: EdgeInsets.only(bottom: 20),
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height / 3,
                               child: ListView.builder(
@@ -189,7 +189,7 @@ class _MyPetsState extends State<MyPets> {
                             ),
                           ),
                           Container(
-                              padding: EdgeInsets.only(bottom: 30),
+                              padding: EdgeInsets.only(bottom: 20),
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height / 3,
                               child: ListView.builder(

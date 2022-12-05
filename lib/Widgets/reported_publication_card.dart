@@ -50,21 +50,31 @@ class _ReportedPublicationCardState extends State<ReportedPublicationCard> {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(25),
+            margin: EdgeInsets.all(10),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Text('${widget.pet.specie}',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15)),
                   Text('Talla:  ${widget.pet.size}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
                   Text('Color:  ${widget.pet.color}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
                   Text('Sexo:  ${widget.pet.sex}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
                   Text('Raza:  ${widget.pet.breed}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
-                  widget.active == false
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
+                  widget.active == true
                       ? TextButton(
+                          style: TextButton.styleFrom(
+                            minimumSize: Size.zero,
+                            padding: EdgeInsets.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
                           onPressed: () {},
                           child: Text(
                             'desactivar',

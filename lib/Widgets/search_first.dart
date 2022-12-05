@@ -454,6 +454,7 @@ class _SearchFirstState extends State<SearchFirst> {
                             selectedBreed: selectedBreed!,
                             selectedColor: selectedColor!,
                             selectedSpecie: selectedSpecie!)));
+                    name.text = '';
                   } catch (e) {}
                 }),
                 child: Text(

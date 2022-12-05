@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                     if (state is ReportedPetsSuccessState) {
                       return Container(
                           padding: EdgeInsets.only(bottom: 30),
-                          height: MediaQuery.of(context).size.height - 200,
+                          height: MediaQuery.of(context).size.height - 180,
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             itemCount: state.listElements.length,

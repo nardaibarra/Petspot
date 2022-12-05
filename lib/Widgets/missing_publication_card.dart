@@ -60,22 +60,27 @@ class _MissingPublicationCardState extends State<MissingPublicationCard> {
                           fontWeight: FontWeight.bold,
                           fontSize: 15)),
                   Text('Talla:  ${widget.pet.size}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
                   Text('Color:  ${widget.pet.color}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
                   Text('Sexo:  ${widget.pet.sex}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
                   Text('Raza:  ${widget.pet.breed}',
-                      style: TextStyle(color: Colors.black, fontSize: 10)),
+                      style: TextStyle(color: Colors.black, fontSize: 8)),
                   widget.active == true
                       ? TextButton(
+                          style: TextButton.styleFrom(
+                            minimumSize: Size.zero,
+                            padding: EdgeInsets.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
                           onPressed: () {},
                           child: Text(
                             'desactivar',
                             style: TextStyle(
                                 fontSize: 10, color: Colors.grey.shade600),
                           ))
-                      : Text("")
+                      : Text('')
                 ]),
           ),
         ]),
