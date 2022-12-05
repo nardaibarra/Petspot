@@ -17,12 +17,13 @@ class GetMyPetsEvent extends MyPublicationsEvent {
   List<Object> get props => [];
 }
 
-class DeactivateMyRerportsEvent extends MyPublicationsEvent {
+class DeactivatePostEvent extends MyPublicationsEvent {
+  final String docId;
+  final String postType;
+  DeactivatePostEvent({
+    required this.docId,
+    required this.postType,
+  });
   @override
-  List<Object> get props => [];
-}
-
-class DeactivateMyPetsEvent extends MyPublicationsEvent {
-  @override
-  List<Object> get props => [];
+  List<Object> get props => [docId, postType];
 }

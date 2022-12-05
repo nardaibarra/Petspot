@@ -57,6 +57,23 @@ class _SearchPetFormState extends State<SearchPetForm> {
                   }
                 },
                 builder: (context, state) {
+                  if (state is SearchFormAnonymousState) {
+                    return Column(children: [
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            'Haz login para poder publicar a tu mascota.',
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ]);
+                  }
                   if (state is SearchFormFirstStepState) {
                     return SearchFirst();
                   } else if (state is SearchFormSecondStepState) {

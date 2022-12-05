@@ -75,6 +75,11 @@ class _MissingListState extends State<MissingList> {
               BlocConsumer<MissingBloc, MissingState>(
                   listener: (context, state) {},
                   builder: (context, state) {
+                    if (state is MissingPetsAnonymousState) {
+                      return Center(
+                          child: Text(
+                              'Haz login para poder publicar una mascota perdida'));
+                    }
                     if (state is MissingPetsLoadingState) {
                       return Center(
                         child: LoadingAnimationWidget.twistingDots(

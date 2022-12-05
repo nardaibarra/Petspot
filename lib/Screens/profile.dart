@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:petspot/Repositories/user_auth.dart';
 import 'package:petspot/Repositories/user_details.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
@@ -16,8 +17,15 @@ class Profile extends StatefulWidget {
 }
 
 TextEditingController telephone = TextEditingController();
+UserAuth auth = UserAuth();
+bool _anonymous = auth.isAnonymous();
 
 class _ProfileState extends State<Profile> {
+  void initState() {
+    super.initState();
+    _anonymous = auth.isAnonymous();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +102,7 @@ class _ProfileState extends State<Profile> {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 5),
                                 child: TextFormField(
+                                  readOnly: _anonymous,
                                   controller: telephone,
                                   cursorColor: Colors.grey.shade800,
                                   style: TextStyle(
@@ -116,8 +125,15 @@ class _ProfileState extends State<Profile> {
                                                 Color.fromARGB(0, 0, 187, 212)),
                                       ),
                                       suffixIcon: IconButton(
+                                        color: _anonymous
+                                            ? Colors.white
+                                            : Colors.purple,
                                         icon: FaIcon(FontAwesomeIcons.check),
                                         onPressed: () async {
+                                          if (_anonymous) {
+                                            return;
+                                          }
+
                                           String newTel =
                                               await userRepo.editUserTelephone(
                                                   telephone.text);

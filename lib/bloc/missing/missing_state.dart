@@ -19,6 +19,8 @@ class MissingPetsSuccessState extends MissingState {
 
 class MissingPetsErrorState extends MissingState {}
 
+class MissingPetsAnonymousState extends MissingState {}
+
 class MissingPetsLoadingState extends MissingState {}
 
 class MissingPetsEmptyState extends MissingState {}
