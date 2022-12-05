@@ -5,6 +5,7 @@ import 'package:petspot/Screens/home.dart';
 import 'package:petspot/Screens/login.dart';
 import 'package:petspot/bloc/auth/auth_bloc.dart';
 import 'package:petspot/bloc/missing/missing_bloc.dart';
+import 'package:petspot/bloc/my_publications/my_publications_bloc.dart';
 import 'package:petspot/bloc/report_form/report_form_bloc.dart';
 import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
@@ -36,6 +37,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => ReportFormBloc(),
+        ),
+        BlocProvider(
+          create: (context) => MyPublicationsBloc(),
         )
       ],
       child: MultiProvider(providers: [

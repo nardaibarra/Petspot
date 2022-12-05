@@ -46,9 +46,8 @@ class _MissingPetCardState extends State<MissingPetCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                width: MediaQuery.of(context).size.width / 2.3,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -71,11 +70,13 @@ class _MissingPetCardState extends State<MissingPetCard> {
                           style: TextStyle(color: Colors.black, fontSize: 10)),
                     ])),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                width: MediaQuery.of(context).size.width / 2.3,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('Publicado por ${widget.pet.user}',
+                      Text('Publicado por  ${widget.pet.user}',
+                          textAlign: TextAlign.right,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,

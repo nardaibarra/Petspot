@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/Widgets/action_button.dart';
 import 'package:petspot/Widgets/navbar.dart';
@@ -38,7 +39,7 @@ class _HomeState extends State<Home> {
                   style: TextStyle(
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                      fontSize: 20),
                 ),
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -72,6 +73,15 @@ class _HomeState extends State<Home> {
               BlocConsumer<ReportedBloc, ReportedState>(
                   listener: (context, state) {},
                   builder: (context, state) {
+                    if (state is ReportedPetsLoadingState) {
+                      return Center(
+                        child: LoadingAnimationWidget.twistingDots(
+                          leftDotColor: Color.fromARGB(255, 246, 232, 110),
+                          rightDotColor: Color.fromARGB(255, 246, 232, 110),
+                          size: 200,
+                        ),
+                      );
+                    }
                     if (state is ReportedPetsSuccessState) {
                       return Container(
                           padding: EdgeInsets.only(bottom: 30),

@@ -38,8 +38,6 @@ class UserDetails {
   }
 
   Future<String> editUserTelephone(String telephone) async {
-    print('editing');
-    print(telephone);
     try {
       _fireBaseStore
           .collection("usuarios")

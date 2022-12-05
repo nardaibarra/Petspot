@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:petspot/Repositories/my_publications.dart';
 import 'package:petspot/Screens/home.dart';
 import 'package:petspot/Screens/missing_list.dart';
 import 'package:petspot/Screens/my_pets.dart';
 import 'package:petspot/Screens/profile.dart';
 import 'package:petspot/bloc/missing/missing_bloc.dart';
+import 'package:petspot/bloc/my_publications/my_publications_bloc.dart';
 import 'package:petspot/bloc/reported/reported_bloc.dart';
 import 'package:petspot/bloc/user/user_bloc.dart';
 
@@ -92,6 +94,7 @@ class Navbar extends StatelessWidget {
   }
 
   navigateToMyPets(BuildContext context) {
+    BlocProvider.of<MyPublicationsBloc>(context).add(GetMyPetsEvent());
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const MyPets()));
   }
