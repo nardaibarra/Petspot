@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/Repositories/image.dart';
+import 'package:petspot/bloc/missing/missing_bloc.dart';
 import 'package:petspot/bloc/search_form/search_form_bloc.dart';
 
 class SearchSecondImage extends StatefulWidget {
@@ -60,26 +61,26 @@ class _SearchSecondImageState extends State<SearchSecondImage> {
             'Se usara la ubicacion actual para la publicacion',
             style: TextStyle(color: Colors.grey.shade600),
           ),
-          TextFormField(
-            controller: direction,
-            cursorColor: Colors.grey.shade800,
-            style: TextStyle(
-                color: Colors.grey.shade600, decoration: TextDecoration.none),
-            decoration: InputDecoration(
-                hintText: 'Ubicación',
-                filled: true,
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade500,
-                ),
-                fillColor: Colors.grey.shade100,
-                enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                    borderRadius: BorderRadius.circular(10)),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                )),
-          ),
+          // TextFormField(
+          //   controller: direction,
+          //   cursorColor: Colors.grey.shade800,
+          //   style: TextStyle(
+          //       color: Colors.grey.shade600, decoration: TextDecoration.none),
+          //   decoration: InputDecoration(
+          //       hintText: 'Ubicación',
+          //       filled: true,
+          //       hintStyle: TextStyle(
+          //         color: Colors.grey.shade500,
+          //       ),
+          //       fillColor: Colors.grey.shade100,
+          //       enabledBorder: UnderlineInputBorder(
+          //           borderSide:
+          //               BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
+          //           borderRadius: BorderRadius.circular(10)),
+          //       focusedBorder: UnderlineInputBorder(
+          //         borderSide: BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
+          //       )),
+          // ),
           Text(
             'Agrega una descripción breve que puede ayudar a identificarlo',
             style: TextStyle(
@@ -169,6 +170,8 @@ class _SearchSecondImageState extends State<SearchSecondImage> {
                 onPressed: (() {
                   BlocProvider.of<SearchFormBloc>(context).add(
                       (PostSearchFormEvent(description: description.text)));
+                  BlocProvider.of<MissingBloc>(context)
+                      .add((GetAllMissingPetsEvent()));
                 }),
                 child: Text(
                   'Publicar',

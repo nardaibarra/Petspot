@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petspot/Repositories/forms.dart';
 import 'package:petspot/bloc/report_form/report_form_bloc.dart';
+import 'package:petspot/bloc/reported/reported_bloc.dart';
 
 import '../Repositories/image.dart';
 
@@ -54,30 +55,30 @@ class _ReportSecondImageState extends State<ReportSecondImage> {
               )
             ],
           ),
-          Text(
-            '¿Por dónde lo viste?',
-            style: TextStyle(color: Colors.grey.shade600),
-          ),
-          TextFormField(
-            controller: name,
-            cursorColor: Colors.grey.shade800,
-            style: TextStyle(
-                color: Colors.grey.shade600, decoration: TextDecoration.none),
-            decoration: InputDecoration(
-                hintText: 'Ubicación',
-                filled: true,
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade500,
-                ),
-                fillColor: Colors.grey.shade100,
-                enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                    borderRadius: BorderRadius.circular(10)),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
-                )),
-          ),
+          // Text(
+          //   '¿Por dónde lo viste?',
+          //   style: TextStyle(color: Colors.grey.shade600),
+          // ),
+          // TextFormField(
+          //   controller: name,
+          //   cursorColor: Colors.grey.shade800,
+          //   style: TextStyle(
+          //       color: Colors.grey.shade600, decoration: TextDecoration.none),
+          //   decoration: InputDecoration(
+          //       hintText: 'Ubicación',
+          //       filled: true,
+          //       hintStyle: TextStyle(
+          //         color: Colors.grey.shade500,
+          //       ),
+          //       fillColor: Colors.grey.shade100,
+          //       enabledBorder: UnderlineInputBorder(
+          //           borderSide:
+          //               BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
+          //           borderRadius: BorderRadius.circular(10)),
+          //       focusedBorder: UnderlineInputBorder(
+          //         borderSide: BorderSide(color: Color.fromARGB(0, 0, 187, 212)),
+          //       )),
+          // ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text(
               'Agrega fotos',
@@ -158,6 +159,8 @@ class _ReportSecondImageState extends State<ReportSecondImage> {
                 onPressed: (() {
                   BlocProvider.of<ReportFormBloc>(context)
                       .add((PostReportFormEvent()));
+                  BlocProvider.of<ReportedBloc>(context)
+                      .add((GetAllReportedPetsEvent()));
                 }),
                 child: Text(
                   'Publicar',

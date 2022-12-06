@@ -31,11 +31,6 @@ class MyPublicationsBloc
 
   FutureOr<void> _getMyReports(
       GetMyRerportsEvent event, Emitter<MyPublicationsState> emit) async {
-    UserAuth auth = UserAuth();
-    if (auth.isAnonymous()) {
-      emit(MyPublicationsAnonymousState());
-      return;
-    }
     var publications = MyPublications();
     var activePets = await publications.getAllMyReportingPublications(true);
     var inactivePets = await publications.getAllMyReportingPublications(false);
