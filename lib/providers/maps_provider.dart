@@ -150,6 +150,7 @@ class MapaProvider with ChangeNotifier {
     // inverted geocoding to get text address
     var places =
         await placemarkFromCoordinates(position.latitude, position.longitude);
+
     if (places != null && places.isNotEmpty) {
       final Placemark place = places.first;
       return "${place.thoroughfare}, ${place.locality}";
